@@ -1,92 +1,94 @@
-/* 기본 레이아웃 */
-body, html {
+* {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  box-sizing: border-box;
 }
+
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+  background-color: #fff;
+  color: #111;
+}
+
 .container {
   display: flex;
   min-height: 100vh;
 }
 
-/* 사이드바 */
+/* Sidebar */
 .sidebar {
-  width: 280px;
-  background: #f8f8f8;
-  padding: 20px;
-  box-sizing: border-box;
-}
-.logo {
-  margin: 0 0 20px;
-  font-size: 28px;
-}
-.nav-menu {
+  width: 300px;
+  padding: 40px 20px;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  justify-content: space-between;
 }
-.menu-item {
+
+.sidebar h1 {
+  font-size: 22px;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.side-menu li {
+  margin-bottom: 12px;
+}
+
+.side-menu a {
   text-decoration: none;
-  color: #333;
-  font-size: 16px;
+  color: #111;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
-.menu-item:hover {
-  color: #0073e6;
+
+.side-menu a:hover {
+  color: #44aaff;
 }
-.studio-info {
-  margin-top: 40px;
+
+/* Contact Box */
+.contact-text {
   font-size: 14px;
-  color: #555;
+  line-height: 1.6;
+  color: #111;
+  margin-top: 40px;
 }
 
-/* 메인 콘텐츠 (이미지 그리드) */
-.main-content {
+
+/* Gallery */
+.gallery {
   flex: 1;
-  padding: 20px;
-  box-sizing: border-box;
-}
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
   gap: 20px;
+  padding: 40px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
 }
-.item img {
+
+.gallery-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+  min-width: 300px;
+}
+
+.gallery img {
   width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  border-radius: 8px;
+  object-fit: cover;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-/* 반응형 처리 */
-@media (max-width: 992px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .container {
-    flex-direction: column;
-  }
-  .sidebar {
-    order: 0;
-    width: 100%;
-    padding: 16px;
-    text-align: center;
-  }
-  .nav-menu {
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-  .main-content {
-    order: 1;
-    padding: 10px;
-  }
-  .grid {
-    grid-template-columns: 1fr;
-  }
+.gallery img:hover {
+  transform: scale(1.02);
 }
