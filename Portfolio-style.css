@@ -1,90 +1,83 @@
-/* 기본 스타일 */
-body {
+/* style.css */
+* {
   margin: 0;
-  font-family: 'Noto Sans KR', sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Pretendard', sans-serif;
 }
 
-header {
-  display: none;
+body {
   background: #fff;
-  padding: 1rem;
-  border-bottom: 1px solid #ddd;
-}
-
-header h1 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.2rem;
-}
-
-.mobile-nav a {
-  margin-right: 10px;
-  text-decoration: none;
-  color: #333;
+  color: #111;
 }
 
 .container {
   display: flex;
+  flex-direction: row;
+  min-height: 100vh;
 }
 
 .sidebar {
   width: 250px;
-  padding: 2rem;
-  box-sizing: border-box;
+  padding: 20px;
+  background: #f4f4f4;
+  flex-shrink: 0;
 }
 
-.sidebar nav a {
-  display: block;
-  margin-bottom: 1rem;
+.sidebar h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.menu {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.menu li {
+  margin-bottom: 10px;
+}
+
+.menu a {
   text-decoration: none;
-  color: #000;
+  color: #333;
 }
 
-.contact {
-  margin-top: 2rem;
-  font-size: 0.9rem;
-  color: #444;
+.contact p {
+  font-size: 14px;
+  margin-bottom: 6px;
 }
 
 .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  padding: 2rem;
-  flex-grow: 1;
-  box-sizing: border-box;
+  padding: 20px;
+  flex: 1;
 }
 
 .gallery img {
   width: 100%;
   height: auto;
-  border-radius: 5px;
-  object-fit: cover;
+  border-radius: 8px;
 }
 
-/* 태블릿용 */
-@media (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
   .gallery {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* 모바일용 */
-@media (max-width: 768px) {
-  header {
-    display: block;
-  }
-
-  .sidebar {
-    display: none;
-  }
-
+@media screen and (max-width: 768px) {
   .container {
     flex-direction: column;
   }
-
+  .sidebar {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+  }
   .gallery {
-    grid-template-columns: repeat(1, 1fr);
-    padding: 1rem;
+    grid-template-columns: 1fr;
   }
 }
 
