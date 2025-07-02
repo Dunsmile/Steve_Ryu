@@ -92,3 +92,58 @@ body {
 .gallery img:hover {
   transform: scale(1.02);
 }
+
+
+@media (max-width: 1024px) {
+  .gallery {
+    flex-wrap: wrap;
+  }
+
+  .gallery-column {
+    min-width: 45%;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .sidebar h1 {
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .side-menu ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .side-menu li {
+    margin-bottom: 0;
+  }
+
+  .contact-text {
+    margin-top: 20px;
+  }
+
+  .gallery {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .gallery-column {
+    min-width: 100%;
+  }
+}
