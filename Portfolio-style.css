@@ -1,94 +1,90 @@
-* {
+/* 기본 스타일 */
+body {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
-body {
-  font-family: 'Helvetica Neue', sans-serif;
-  background-color: #fff;
-  color: #111;
+header {
+  display: none;
+  background: #fff;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.mobile-nav a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: #333;
 }
 
 .container {
   display: flex;
-  min-height: 100vh;
 }
 
-/* Sidebar */
 .sidebar {
-  width: 300px;
-  padding: 40px 20px;
-  background-color: #fff;
-  border-right: 1px solid #ddd;
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  width: 250px;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
-.sidebar h1 {
-  font-size: 22px;
-  margin-bottom: 40px;
-  font-weight: bold;
-}
-.side-menu ul {
-  list-style: none;
-  padding: 0;
-}
-
-.side-menu li {
-  margin-bottom: 12px;
-}
-
-.side-menu a {
+.sidebar nav a {
+  display: block;
+  margin-bottom: 1rem;
   text-decoration: none;
-  color: #111;
-  font-weight: 500;
-  transition: color 0.2s ease;
+  color: #000;
 }
 
-.side-menu a:hover {
-  color: #44aaff;
+.contact {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #444;
 }
 
-/* Contact Box */
-.contact-text {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #111;
-  margin-top: 40px;
-}
-
-
-/* Gallery */
 .gallery {
-  flex: 1;
-  display: flex;
-  gap: 20px;
-  padding: 40px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-}
-
-.gallery-column {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  flex: 1;
-  min-width: 300px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 2rem;
+  flex-grow: 1;
+  box-sizing: border-box;
 }
 
 .gallery img {
   width: 100%;
-  border-radius: 8px;
+  height: auto;
+  border-radius: 5px;
   object-fit: cover;
-  transition: 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-.gallery img:hover {
-  transform: scale(1.02);
+/* 태블릿용 */
+@media (max-width: 1024px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
+
+/* 모바일용 */
+@media (max-width: 768px) {
+  header {
+    display: block;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 1rem;
+  }
+}
+
