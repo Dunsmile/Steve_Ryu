@@ -1,0 +1,43 @@
+<!-- @dsCard group="Components" -->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 28px 32px; }
+  .card {
+    background: var(--bg-2); border: 1px solid var(--stroke-1); border-radius: var(--r-12);
+    padding: 24px; display: flex; flex-direction: column; gap: 16px;
+    transition: border-color 220ms;
+  }
+  .card:hover { border-color: var(--stroke-2); }
+  .head { display: flex; justify-content: space-between; align-items: flex-start; }
+  .icon { width: 36px; height: 36px; border-radius: 10px; background: var(--accent-tint); color: var(--accent-hi); display: grid; place-items: center; font-size: 18px; font-weight: 900; }
+  .num { font-size: 11px; color: var(--fg-4); font-family: var(--font-mono); letter-spacing: 0.12em; }
+  .title { font-size: 18px; font-weight: 700; color: var(--fg-1); letter-spacing: -0.01em; }
+  .desc { font-size: 14px; color: var(--fg-3); line-height: 1.6; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="card">
+      <div class="head">
+        <div class="icon">1</div>
+        <div class="num">WEEK 01–04</div>
+      </div>
+      <div class="title">BX 기초 · 브리프 해석</div>
+      <div class="desc">브랜드 전략 → 비주얼 시스템으로 전환하는 사고법. 실 브리프 2건.</div>
+    </div>
+    <div class="card">
+      <div class="head">
+        <div class="icon">2</div>
+        <div class="num">WEEK 05–08</div>
+      </div>
+      <div class="title">프로덕트 디자인 통합</div>
+      <div class="desc">BX 시스템을 디지털 프로덕트 안에서 어떻게 살아 움직이게 할지.</div>
+    </div>
+  </div>
+</body>
+</html>

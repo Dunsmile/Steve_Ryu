@@ -1,0 +1,44 @@
+<!-- @dsCard group="Components" -->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 24px 32px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .row + .row { margin-top: 14px; }
+  .label { font-size: 10px; color: var(--fg-4); letter-spacing: 0.12em; text-transform: uppercase; width: 90px; padding-top: 6px; }
+  .grp { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; font-size: 12px; font-weight: 600;
+    border-radius: var(--r-pill); letter-spacing: -0.01em;
+  }
+  .chip-default { background: var(--bg-3); color: var(--fg-2); border: 1px solid var(--stroke-1); }
+  .chip-accent { background: var(--accent-tint); color: var(--accent-hi); border: 1px solid var(--accent-tint-2); }
+  .chip-warn { background: rgba(255, 212, 0, 0.16); color: var(--signal-warn); border: 1px solid rgba(255, 212, 0, 0.32); }
+  .chip-success { background: var(--signal-success-tint); color: var(--signal-success); border: 1px solid rgba(0, 229, 160, 0.32); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+</style>
+</head>
+<body>
+  <div class="row" style="align-items: flex-start;">
+    <div class="label">Tags</div>
+    <div class="grp">
+      <span class="chip chip-default">BX 디자인</span>
+      <span class="chip chip-default">90일</span>
+      <span class="chip chip-default">현업 멘토</span>
+      <span class="chip chip-default">국비지원</span>
+    </div>
+  </div>
+  <div class="row" style="align-items: flex-start;">
+    <div class="label">Status</div>
+    <div class="grp">
+      <span class="chip chip-warn"><span class="dot"></span>마감 D-12</span>
+      <span class="chip chip-success"><span class="dot"></span>5기 모집중</span>
+      <span class="chip chip-accent">AI 도구 지원</span>
+    </div>
+  </div>
+</body>
+</html>

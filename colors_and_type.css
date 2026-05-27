@@ -1,0 +1,176 @@
+/* =========================================================================
+   오즈코딩스쿨 AI BX 부트캠프 — Design Tokens
+   다크모드 베이스 / 일렉트릭 블루 액센트 / Pretendard
+   ========================================================================= */
+
+/* Pretendard Variable — local woff2 */
+@font-face {
+  font-family: 'Pretendard Variable';
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url('fonts/PretendardVariable.woff2') format('woff2-variations'),
+       url('fonts/PretendardVariable.ttf') format('truetype-variations');
+}
+
+:root {
+  /* ---------- COLOR — Surfaces ---------- */
+  --bg-1: #0A0A0F;        /* page base, deep near-black */
+  --bg-2: #13131A;        /* cards, sections */
+  --bg-3: #1C1C26;        /* hover, input fields */
+  --bg-4: #25252F;        /* nested cards, popovers */
+  --bg-inverse: #FFFFFF;  /* rare — for inverted callouts */
+
+  /* ---------- COLOR — Foreground (text on dark) ---------- */
+  --fg-1: #FFFFFF;        /* headlines, primary text */
+  --fg-2: #E5E5EC;        /* body text */
+  --fg-3: #A8A8B3;        /* secondary, helper */
+  --fg-4: #6B6B7A;        /* caption, disabled */
+  --fg-inverse: #0A0A0F;  /* text on light surfaces */
+
+  /* ---------- COLOR — Stroke / divider ---------- */
+  --stroke-1: rgba(255, 255, 255, 0.08);  /* default border */
+  --stroke-2: rgba(255, 255, 255, 0.18);  /* hover border */
+  --stroke-3: rgba(255, 255, 255, 0.32);  /* strong border */
+  --grid-line: rgba(255, 255, 255, 0.04); /* bg grid pattern */
+
+  /* ---------- COLOR — Accent (Electric Blue) ---------- */
+  --accent: #3D5AFE;          /* primary CTA, links, focus */
+  --accent-hi: #7B8CFF;       /* hover */
+  --accent-pressed: #2638E5;  /* active */
+  --accent-tint: rgba(61, 90, 254, 0.16);   /* tint bg, focus ring */
+  --accent-tint-2: rgba(61, 90, 254, 0.32); /* stronger tint */
+
+  /* ---------- COLOR — Signals ---------- */
+  --signal-warn: #FFD400;     /* limited slots, urgency */
+  --signal-warn-tint: rgba(255, 212, 0, 0.16);
+  --signal-success: #00E5A0;  /* completed, certified */
+  --signal-success-tint: rgba(0, 229, 160, 0.16);
+  --signal-danger: #FF4D6D;   /* alerts, mistakes-cost-you copy */
+  --signal-danger-tint: rgba(255, 77, 109, 0.16);
+
+  /* ---------- TYPE — Family ---------- */
+  --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ---------- TYPE — Size scale ---------- */
+  --size-12: 0.75rem;     /* 12 — micro caption */
+  --size-14: 0.875rem;    /* 14 — caption */
+  --size-15: 0.9375rem;   /* 15 — small body */
+  --size-16: 1rem;        /* 16 — body */
+  --size-18: 1.125rem;    /* 18 — large body / lead */
+  --size-20: 1.25rem;     /* 20 — h6 / list heading */
+  --size-24: 1.5rem;      /* 24 — h5 */
+  --size-28: 1.75rem;     /* 28 — h4 */
+  --size-32: 2rem;        /* 32 — h3 */
+  --size-40: 2.5rem;      /* 40 — h2 */
+  --size-56: 3.5rem;      /* 56 — h1 */
+  --size-72: 4.5rem;      /* 72 — display */
+  --size-96: 6rem;        /* 96 — hero numeric */
+  --size-120: 7.5rem;     /* 120 — XXL numeric */
+  --size-200: 12.5rem;    /* 200 — full-bleed numeric */
+
+  /* ---------- TYPE — Weight ---------- */
+  --w-regular: 400;
+  --w-medium: 500;
+  --w-semibold: 600;
+  --w-bold: 700;
+  --w-black: 900;
+
+  /* ---------- TYPE — Line height ---------- */
+  --lh-tight: 0.95;       /* display numerics */
+  --lh-snug: 1.1;         /* headlines */
+  --lh-base: 1.55;        /* body */
+  --lh-loose: 1.7;        /* long-form */
+
+  /* ---------- TYPE — Letter spacing ---------- */
+  --ls-display: -0.04em;  /* big numbers, hero */
+  --ls-headline: -0.02em; /* headings */
+  --ls-body: -0.01em;     /* body, Pretendard recommendation */
+  --ls-caps: 0.18em;      /* English caption labels */
+
+  /* ---------- SPACING — 8pt base scale ---------- */
+  --sp-4: 0.25rem;        /* 4 */
+  --sp-8: 0.5rem;         /* 8 */
+  --sp-12: 0.75rem;       /* 12 */
+  --sp-16: 1rem;          /* 16 */
+  --sp-20: 1.25rem;       /* 20 */
+  --sp-24: 1.5rem;        /* 24 */
+  --sp-32: 2rem;          /* 32 */
+  --sp-40: 2.5rem;        /* 40 */
+  --sp-48: 3rem;          /* 48 */
+  --sp-64: 4rem;          /* 64 */
+  --sp-96: 6rem;          /* 96 */
+  --sp-128: 8rem;         /* 128 */
+  --sp-160: 10rem;        /* 160 — section gap */
+
+  /* ---------- RADIUS ---------- */
+  --r-0: 0;
+  --r-4: 4px;             /* badges, tags */
+  --r-8: 8px;             /* inputs, small buttons */
+  --r-12: 12px;           /* cards */
+  --r-20: 20px;           /* large cards, modals */
+  --r-pill: 9999px;       /* CTA pills */
+
+  /* ---------- ELEVATION (used sparingly on dark) ---------- */
+  --shadow-0: none;
+  --shadow-cta: 0 0 0 4px var(--accent-tint);  /* CTA focus glow */
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-modal: 0 24px 64px rgba(0, 0, 0, 0.6);
+
+  /* ---------- MOTION ---------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur-base: 220ms;
+  --dur-slow: 400ms;
+
+  /* ---------- LAYOUT ---------- */
+  --container-max: 1200px;
+  --container-content: 1080px;
+}
+
+/* =========================================================================
+   SEMANTIC ROLES — apply directly to elements
+   ========================================================================= */
+
+html { font-family: var(--font-sans); background: var(--bg-1); color: var(--fg-2); -webkit-font-smoothing: antialiased; }
+body { margin: 0; font-size: var(--size-16); line-height: var(--lh-base); letter-spacing: var(--ls-body); }
+
+/* Headings */
+h1, .h1 { font-size: clamp(var(--size-40), 6vw, var(--size-72)); font-weight: var(--w-black); line-height: var(--lh-snug); letter-spacing: var(--ls-headline); color: var(--fg-1); margin: 0; }
+h2, .h2 { font-size: clamp(var(--size-32), 4vw, var(--size-56)); font-weight: var(--w-black); line-height: var(--lh-snug); letter-spacing: var(--ls-headline); color: var(--fg-1); margin: 0; }
+h3, .h3 { font-size: var(--size-32); font-weight: var(--w-bold); line-height: var(--lh-snug); letter-spacing: var(--ls-headline); color: var(--fg-1); margin: 0; }
+h4, .h4 { font-size: var(--size-24); font-weight: var(--w-bold); line-height: 1.3; letter-spacing: var(--ls-headline); color: var(--fg-1); margin: 0; }
+h5, .h5 { font-size: var(--size-20); font-weight: var(--w-semibold); line-height: 1.4; letter-spacing: var(--ls-body); color: var(--fg-1); margin: 0; }
+h6, .h6 { font-size: var(--size-18); font-weight: var(--w-semibold); line-height: 1.45; color: var(--fg-1); margin: 0; }
+
+/* Display / Numeric (for big hooks like 90일 / 3개 / 50만원) */
+.display-xl { font-size: clamp(var(--size-96), 14vw, var(--size-200)); font-weight: var(--w-black); line-height: var(--lh-tight); letter-spacing: var(--ls-display); color: var(--fg-1); }
+.display-lg { font-size: clamp(var(--size-72), 10vw, var(--size-120)); font-weight: var(--w-black); line-height: var(--lh-tight); letter-spacing: var(--ls-display); color: var(--fg-1); }
+.display-md { font-size: var(--size-72); font-weight: var(--w-black); line-height: var(--lh-tight); letter-spacing: var(--ls-display); color: var(--fg-1); }
+
+/* Body */
+.body-lg { font-size: var(--size-18); line-height: var(--lh-base); color: var(--fg-2); }
+.body    { font-size: var(--size-16); line-height: var(--lh-base); color: var(--fg-2); }
+.body-sm { font-size: var(--size-14); line-height: var(--lh-base); color: var(--fg-3); }
+
+/* English uppercase caption — "CURRICULUM", "BENEFITS" */
+.eyebrow, .caption-en {
+  font-size: var(--size-12);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--accent-hi);
+}
+
+/* Korean caption / helper */
+.caption { font-size: var(--size-14); color: var(--fg-3); }
+.helper  { font-size: var(--size-12); color: var(--fg-4); }
+
+/* Links */
+a { color: var(--accent-hi); text-decoration: none; transition: color var(--dur-base) var(--ease-out); }
+a:hover { color: var(--fg-1); }
+
+/* Selection */
+::selection { background: var(--accent); color: var(--fg-1); }

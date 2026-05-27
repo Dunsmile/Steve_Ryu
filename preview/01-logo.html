@@ -1,0 +1,56 @@
+<!-- @dsCard group="Brand" -->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 36px 40px; }
+  .wordmark {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 14px 22px;
+    background: var(--bg-2); border: 1px solid var(--stroke-1);
+    border-radius: var(--r-12);
+  }
+  .mark {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: linear-gradient(135deg, #3D5AFE 0%, #7B8CFF 100%);
+    display: grid; place-items: center;
+    font-weight: 900; color: white; font-size: 22px;
+    letter-spacing: -0.04em;
+  }
+  .wm-text { display:flex; flex-direction: column; line-height: 1; gap: 4px; }
+  .wm-product { font-weight: 900; font-size: 18px; color: var(--fg-1); letter-spacing: -0.02em; }
+  .wm-sub { font-size: 12px; color: var(--fg-3); letter-spacing: 0.06em; }
+  .row { display:flex; gap: 16px; align-items: center; }
+  .row + .row { margin-top: 14px; }
+  .label { font-size: 11px; color: var(--fg-4); width: 100px; letter-spacing: 0.12em; text-transform: uppercase; }
+  /* inverse mark */
+  .wm-light { background: var(--bg-inverse); }
+  .wm-light .wm-product { color: var(--fg-inverse); }
+  .wm-light .wm-sub { color: #6B6B7A; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="label">Primary</div>
+    <div class="wordmark">
+      <div class="mark">O</div>
+      <div class="wm-text">
+        <div class="wm-product">AI BX 프로덕트 디자이너</div>
+        <div class="wm-sub">OZ CODING SCHOOL · BOOTCAMP</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="label">On light</div>
+    <div class="wordmark wm-light">
+      <div class="mark">O</div>
+      <div class="wm-text">
+        <div class="wm-product">AI BX 프로덕트 디자이너</div>
+        <div class="wm-sub">OZ CODING SCHOOL · BOOTCAMP</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!-- @dsCard group="Spacing" -->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 0; background: var(--bg-1); }
+  .canvas {
+    position: relative;
+    height: 220px;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    overflow: hidden;
+  }
+  .glow {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(61, 90, 254, 0.28) 0%, transparent 50%);
+  }
+  .label {
+    position: absolute; bottom: 16px; left: 24px;
+    font-size: 11px; color: var(--fg-3); font-family: var(--font-mono);
+  }
+  .title { position: absolute; top: 24px; left: 24px; color: var(--fg-1); font-weight: 900; font-size: 22px; letter-spacing: -0.02em; }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="glow"></div>
+    <div class="title">Hero background · grid 80px + radial glow</div>
+    <div class="label">linear-gradient × 2 (4% alpha) · radial-gradient accent 28%</div>
+  </div>
+</body>
+</html>

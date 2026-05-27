@@ -1,0 +1,50 @@
+<!-- @dsCard group="Components" -->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 0; background: var(--bg-1); }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 32px; border-bottom: 1px solid var(--stroke-1);
+    background: rgba(10, 10, 15, 0.72); backdrop-filter: blur(12px);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .mark { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, #3D5AFE, #7B8CFF); display: grid; place-items: center; color: white; font-weight: 900; font-size: 16px; }
+  .name { font-weight: 800; color: var(--fg-1); letter-spacing: -0.02em; font-size: 15px; }
+  .links { display: flex; gap: 28px; }
+  .links a { color: var(--fg-3); font-size: 14px; font-weight: 500; }
+  .links a:hover { color: var(--fg-1); }
+  .cta {
+    background: var(--accent); color: white; padding: 9px 18px;
+    border-radius: var(--r-pill); font-size: 13px; font-weight: 700;
+  }
+  .footer {
+    padding: 24px 32px; color: var(--fg-4); font-size: 12px;
+    border-top: 1px solid var(--stroke-1); display: flex; justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+  <div class="nav">
+    <div class="brand">
+      <div class="mark">O</div>
+      <div class="name">AI BX 프로덕트 디자이너 부트캠프</div>
+    </div>
+    <div class="links">
+      <a>커리큘럼</a>
+      <a>멘토</a>
+      <a>혜택</a>
+      <a>FAQ</a>
+    </div>
+    <a class="cta">지금 신청 →</a>
+  </div>
+  <div style="height: 40px"></div>
+  <div class="footer">
+    <div>© 넥스트러너스(주) · 오즈코딩스쿨</div>
+    <div>사업자등록번호 000-00-00000 · 통신판매신고 0000</div>
+  </div>
+</body>
+</html>

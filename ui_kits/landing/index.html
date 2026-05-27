@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI BX 프로덕트 디자이너 부트캠프 · 오즈코딩스쿨</title>
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <style>
+    body { background: var(--bg-1); }
+    section[data-screen-label] { scroll-margin-top: 80px; }
+    .cta-primary:hover { background: var(--accent-hi); box-shadow: 0 0 0 6px var(--accent-tint); }
+    input:focus, select:focus { border-color: var(--accent) !important; box-shadow: 0 0 0 4px var(--accent-tint); }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="Nav.jsx"></script>
+  <script type="text/babel" src="Hero.jsx"></script>
+  <script type="text/babel" src="PainSection.jsx"></script>
+  <script type="text/babel" src="SalaryComparison.jsx"></script>
+  <script type="text/babel" src="PortfolioPreview.jsx"></script>
+  <script type="text/babel" src="Curriculum.jsx"></script>
+  <script type="text/babel" src="ChapterHooks.jsx"></script>
+  <script type="text/babel" src="ToolStack.jsx"></script>
+  <script type="text/babel" src="CompetitorComparison.jsx"></script>
+  <script type="text/babel" src="Mentors.jsx"></script>
+  <script type="text/babel" src="BenefitGrid.jsx"></script>
+  <script type="text/babel" src="FAQ.jsx"></script>
+  <script type="text/babel" src="ApplyCTA.jsx"></script>
+  <script type="text/babel" src="Footer.jsx"></script>
+
+  <script type="text/babel">
+    const { Nav, Hero, PainSection, SalaryComparison, PortfolioPreview, Curriculum, ChapterHooks, ToolStack, CompetitorComparison, Mentors, BenefitGrid, FAQ, ApplyCTA, Footer } = window.AIBXKit;
+
+    function App() {
+      return (
+        <div data-screen-label="01 Landing Page">
+          <Nav />
+          <Hero />
+          <PainSection />
+          <SalaryComparison />
+          <PortfolioPreview />
+          <Curriculum />
+          <ChapterHooks />
+          <ToolStack />
+          <CompetitorComparison />
+          <Mentors />
+          <BenefitGrid />
+          <FAQ />
+          <ApplyCTA />
+          <Footer />
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>

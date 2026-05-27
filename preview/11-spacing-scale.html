@@ -1,0 +1,28 @@
+<!-- @dsCard group="Spacing" -->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 28px 32px; }
+  .row { display:flex; align-items: center; gap: 16px; height: 22px; }
+  .row + .row { margin-top: 10px; }
+  .bar { background: var(--accent); height: 14px; border-radius: 2px; }
+  .num { font-family: var(--font-mono); font-size: 12px; color: var(--fg-3); width: 56px; }
+  .name { font-size: 12px; color: var(--fg-4); }
+</style>
+</head>
+<body>
+  <div class="row"><div class="num">4</div><div class="bar" style="width: 4px"></div><div class="name">sp-4 · 인라인 갭</div></div>
+  <div class="row"><div class="num">8</div><div class="bar" style="width: 8px"></div><div class="name">sp-8 · 작은 갭</div></div>
+  <div class="row"><div class="num">12</div><div class="bar" style="width: 12px"></div><div class="name">sp-12 · 칩 패딩</div></div>
+  <div class="row"><div class="num">16</div><div class="bar" style="width: 16px"></div><div class="name">sp-16 · 카드 내부</div></div>
+  <div class="row"><div class="num">24</div><div class="bar" style="width: 24px"></div><div class="name">sp-24 · 모바일 좌우</div></div>
+  <div class="row"><div class="num">32</div><div class="bar" style="width: 32px"></div><div class="name">sp-32 · 카드 패딩</div></div>
+  <div class="row"><div class="num">48</div><div class="bar" style="width: 48px"></div><div class="name">sp-48 · 컴포넌트 갭</div></div>
+  <div class="row"><div class="num">64</div><div class="bar" style="width: 64px"></div><div class="name">sp-64 · 큰 갭</div></div>
+  <div class="row"><div class="num">96</div><div class="bar" style="width: 96px"></div><div class="name">sp-96 · 섹션 시작</div></div>
+  <div class="row"><div class="num">160</div><div class="bar" style="width: 160px"></div><div class="name">sp-160 · 섹션 간격</div></div>
+</body>
+</html>

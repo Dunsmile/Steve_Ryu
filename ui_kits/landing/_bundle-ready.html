@@ -1,0 +1,1607 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI BX 프로덕트 디자이너 부트캠프 · 오즈코딩스쿨</title>
+
+  <!-- ext-resource-dependency: logo images (code-referenced in JSX) -->
+  <meta name="ext-resource-dependency" content="../../assets/logos/openai.png" data-resource-id="logoOpenai" />
+  <meta name="ext-resource-dependency" content="../../assets/logos/anthropic.png" data-resource-id="logoAnthropic" />
+  <meta name="ext-resource-dependency" content="../../assets/logos/midjourney.png" data-resource-id="logoMidjourney" />
+  <meta name="ext-resource-dependency" content="../../assets/logos/firefly.png" data-resource-id="logoFirefly" />
+  <meta name="ext-resource-dependency" content="../../assets/logos/figma.png" data-resource-id="logoFigma" />
+  <meta name="ext-resource-dependency" content="../../assets/logos/adobe.png" data-resource-id="logoAdobe" />
+  <meta name="ext-resource-dependency" content="../../assets/logos/macbook-pro.png" data-resource-id="imgMacbook" />
+
+  <!-- Fonts: referenced via CSS @font-face (bundler picks up via link stylesheet) -->
+  <link rel="stylesheet" href="../../colors_and_type.css">
+
+  <style>
+    body { background: var(--bg-1); }
+    section[data-screen-label] { scroll-margin-top: 80px; }
+    .cta-primary:hover { background: var(--accent-hi); box-shadow: 0 0 0 6px var(--accent-tint); }
+    input:focus, select:focus { border-color: var(--accent) !important; box-shadow: 0 0 0 4px var(--accent-tint); }
+  </style>
+
+  <!-- Bundler thumbnail -->
+  <template id="__bundler_thumbnail" data-bg-color="#0A0A0F">
+    <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+      <!-- dark bg -->
+      <rect width="800" height="500" fill="#0A0A0F"/>
+      <!-- grid lines -->
+      <line x1="0" y1="80" x2="800" y2="80" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="0" y1="160" x2="800" y2="160" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="0" y1="240" x2="800" y2="240" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="0" y1="320" x2="800" y2="320" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="80" y1="0" x2="80" y2="500" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="160" y1="0" x2="160" y2="500" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="240" y1="0" x2="240" y2="500" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="320" y1="0" x2="320" y2="500" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="400" y1="0" x2="400" y2="500" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="480" y1="0" x2="480" y2="500" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="560" y1="0" x2="560" y2="500" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="640" y1="0" x2="640" y2="500" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="720" y1="0" x2="720" y2="500" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <!-- accent glow -->
+      <radialGradient id="glow" cx="50%" cy="40%" r="45%">
+        <stop offset="0%" stop-color="#3D5AFE" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="#3D5AFE" stop-opacity="0"/>
+      </radialGradient>
+      <rect width="800" height="500" fill="url(#glow)"/>
+      <!-- wordmark block -->
+      <rect x="280" y="190" width="240" height="56" rx="10" fill="rgba(61,90,254,0.18)"/>
+      <text x="400" y="226" text-anchor="middle" fill="#7B8CFF" font-size="22" font-weight="900" font-family="sans-serif" letter-spacing="-1">AI BX</text>
+      <!-- sub text -->
+      <text x="400" y="275" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-size="12" font-family="sans-serif" letter-spacing="2">프로덕트 디자이너 부트캠프</text>
+      <!-- 90 days label -->
+      <text x="400" y="310" text-anchor="middle" fill="rgba(255,255,255,0.18)" font-size="11" font-family="sans-serif" letter-spacing="1">OZ CODING SCHOOL</text>
+    </svg>
+  </template>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel">
+/* global React */
+const { useState, useEffect } = React;
+
+function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 16);
+    window.addEventListener('scroll', h, { passive: true });
+    return () => window.removeEventListener('scroll', h);
+  }, []);
+  return (
+    <nav style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      padding: '14px 32px',
+      background: scrolled ? 'rgba(10,10,15,0.78)' : 'transparent',
+      backdropFilter: scrolled ? 'blur(12px)' : 'none',
+      borderBottom: scrolled ? '1px solid var(--stroke-1)' : '1px solid transparent',
+      transition: 'all 220ms var(--ease-out)',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{
+          width: 30, height: 30, borderRadius: 8,
+          background: 'linear-gradient(135deg, #3D5AFE, #7B8CFF)',
+          display: 'grid', placeItems: 'center',
+          color: 'white', fontWeight: 900, fontSize: 17,
+        }}>O</div>
+        <div style={{ fontWeight: 800, color: 'var(--fg-1)', letterSpacing: '-0.02em', fontSize: 15 }}>
+          AI BX 프로덕트 디자이너 부트캠프
+        </div>
+      </div>
+      <div style={{ display: 'flex', gap: 28 }}>
+        {['커리큘럼', '멘토', '혜택', '후기', 'FAQ'].map(l => (
+          <a key={l} href={`#${l}`} style={{ color: 'var(--fg-3)', fontSize: 14, fontWeight: 500 }}>{l}</a>
+        ))}
+      </div>
+      <a href="#apply" style={{
+        background: 'var(--accent)', color: 'white', padding: '10px 18px',
+        borderRadius: 9999, fontSize: 13, fontWeight: 700,
+      }}>지금 신청 →</a>
+    </nav>
+  );
+}
+
+window.AIBXKit = Object.assign(window.AIBXKit || {}, { Nav });
+
+  </script>
+
+  <script type="text/babel">
+/* global React */
+const { useEffect, useState } = React;
+
+function CountUp({ to, suffix = '', duration = 900 }) {
+  const [v, setV] = useState(0);
+  useEffect(() => {
+    let raf, start;
+    const step = (t) => {
+      if (!start) start = t;
+      const p = Math.min((t - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      setV(Math.floor(to * ease));
+      if (p < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [to, duration]);
+  return <span>{v.toLocaleString()}{suffix}</span>;
+}
+
+function Hero() {
+  return (
+    <section style={{
+      position: 'relative',
+      minHeight: '100vh',
+      display: 'grid',
+      placeItems: 'center',
+      padding: '120px 24px 80px',
+      backgroundImage:
+        'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
+      backgroundSize: '80px 80px',
+      overflow: 'hidden',
+    }}>
+      {/* radial glow */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'radial-gradient(circle at 50% 35%, rgba(61,90,254,0.22) 0%, transparent 55%)',
+        pointerEvents: 'none',
+      }} />
+      <div style={{ position: 'relative', maxWidth: 1080, width: '100%', textAlign: 'center' }}>
+        <div style={{
+          display: 'inline-flex', alignItems: 'center', gap: 8,
+          padding: '8px 16px', marginBottom: 32,
+          background: 'var(--accent-tint)', border: '1px solid var(--accent-tint-2)',
+          borderRadius: 9999, color: 'var(--accent-hi)',
+          fontSize: 12, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase',
+        }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent-hi)' }}></span>
+          OZ Coding School · 5기 모집중
+        </div>
+
+        <h1 style={{
+          fontSize: 'clamp(40px, 7vw, 84px)',
+          fontWeight: 900,
+          lineHeight: 1.05,
+          letterSpacing: '-0.04em',
+          color: 'var(--fg-1)',
+          marginBottom: 28,
+        }}>
+          고연봉 로드맵<br />
+          <span style={{
+            background: 'linear-gradient(135deg, #7B8CFF 0%, #3D5AFE 100%)',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+          }}>취업용 포트폴리오</span>를 만드는<br />
+          AI BX 프로덕트 디자이너
+        </h1>
+
+        <p style={{
+          fontSize: 'clamp(16px, 1.6vw, 20px)',
+          color: 'var(--fg-3)',
+          maxWidth: 680, margin: '0 auto 48px',
+          lineHeight: 1.6,
+        }}>
+          90일 후 손에 남는 건 수료증이 아닌, 지원할 수 있는 <strong style={{ color: 'var(--fg-1)' }}>3개의 BX 포트폴리오</strong>입니다.<br />
+          비전공·비경력에서 출발해 고연봉 디자이너 트랙으로 가는 가장 짧은 길.
+        </p>
+
+        {/* big stat row */}
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: 24, maxWidth: 640, margin: '0 auto 48px',
+        }}>
+          {[
+            { num: 90, suf: '일', lbl: '집중 트랙' },
+            { num: 3, suf: '개', lbl: 'BX 포트폴리오' },
+            { num: 50, suf: '만원', lbl: '국비지원 후 부담' },
+          ].map((s, i) => (
+            <div key={i}>
+              <div style={{
+                fontSize: 'clamp(40px, 5vw, 64px)', fontWeight: 900,
+                letterSpacing: '-0.04em', color: 'var(--fg-1)', lineHeight: 1,
+              }}>
+                <CountUp to={s.num} suffix={s.suf} />
+              </div>
+              <div style={{ fontSize: 13, color: 'var(--fg-3)', marginTop: 8 }}>{s.lbl}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <a href="#apply" className="cta-primary" style={{
+            background: 'var(--accent)', color: 'white',
+            padding: '18px 36px', borderRadius: 9999,
+            fontSize: 17, fontWeight: 700, letterSpacing: '-0.01em',
+            transition: 'all 220ms var(--ease-out)',
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+          }}>지금 신청하기 →</a>
+          <a href="#curriculum" style={{
+            background: 'var(--bg-3)', color: 'var(--fg-1)',
+            padding: '18px 32px', borderRadius: 9999,
+            fontSize: 17, fontWeight: 600,
+            border: '1px solid var(--stroke-1)',
+          }}>커리큘럼 보기</a>
+        </div>
+
+        <div style={{ marginTop: 36, fontSize: 12, color: 'var(--fg-4)', letterSpacing: '0.06em' }}>
+          ⏱ 모집 마감 D-12 · 한정 32석
+        </div>
+      </div>
+    </section>
+  );
+}
+
+window.AIBXKit = Object.assign(window.AIBXKit || {}, { Hero });
+
+  </script>
+
+  <script type="text/babel">
+/* global React */
+
+function PainSection() {
+  const items = [
+    {
+      tag: 'PD',
+      name: '프로덕트 디자이너',
+      thesis: '"이 기능이 필요한 이유"',
+      desc: '사용자 데이터·리서치로 "왜 만드는가"를 설계. UI는 결과물, 사고가 핵심.',
+      exit: '토스, 카카오 Pay, 우아한형제들',
+    },
+    {
+      tag: 'BX',
+      name: 'BX 디자이너',
+      thesis: '"이 브랜드가 이 색이어야 하는 이유"',
+      desc: '브랜드 전체 경험의 설계자. 시각·언어·공간·디지털 접점을 하나의 이유로 연결.',
+      exit: 'LG생활건강, ably, 무신사, 아모레',
+    },
+    {
+      tag: 'CD',
+      name: '콘텐츠 디자이너',
+      thesis: '"이 카드뉴스가 이 순서인 이유"',
+      desc: '마케팅 목표를 달성하는 비주얼 설계. 성과 데이터가 다음 기획의 근거.',
+      exit: '에이전시 / 브랜드 인하우스',
+    },
+  ];
+  return (
+    <section id="pain" style={{ padding: '120px 24px', position: 'relative', background: 'var(--bg-1)' }}>
+      <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+        <div className="eyebrow" style={{ color: 'var(--signal-danger)', marginBottom: 16 }}>THE REAL DIFFERENCE</div>
+        <h2 style={{
+          fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900,
+          letterSpacing: '-0.03em', lineHeight: 1.1, color: 'var(--fg-1)',
+          marginBottom: 24, maxWidth: 880,
+        }}>
+          툴을 다루는 사람은 많다.<br />
+          전문 디자이너는 <span style={{ color: 'var(--accent-hi)' }}>"이유"</span>를 설명한다.
+        </h2>
+        <p style={{ fontSize: 18, color: 'var(--fg-3)', maxWidth: 720, marginBottom: 56, lineHeight: 1.65 }}>
+          면접관이 묻는 건 "피그마 할 줄 아세요?"가 아닙니다.<br />
+          <strong style={{ color: 'var(--fg-1)' }}>"왜 이 컬러를, 왜 이 흐름으로, 왜 이 브랜드에?"</strong><br />
+          AI 툴이 이미지를 만들어주는 시대, 살아남는 디자이너는 이유를 설계하는 사람입니다.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginBottom: 48 }}>
+          {items.map((it, i) => (
+            <div key={i} style={{
+              background: 'var(--bg-2)', border: '1px solid var(--stroke-1)',
+              borderRadius: 12, padding: 28,
+              display: 'flex', flexDirection: 'column', gap: 16,
+            }}>
+              <div style={{
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                width: 44, height: 44, background: 'var(--accent-tint)',
+                color: 'var(--accent-hi)', borderRadius: 10,
+                fontWeight: 900, fontSize: 14,
+              }}>{it.tag}</div>
+              <div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--fg-1)', marginBottom: 6, letterSpacing: '-0.01em' }}>{it.name}</div>
+                <div style={{
+                  fontSize: 13, fontWeight: 700, color: 'var(--accent-hi)',
+                  fontStyle: 'italic', marginBottom: 10, lineHeight: 1.4,
+                }}>{it.thesis}</div>
+                <div style={{ fontSize: 14, color: 'var(--fg-3)', lineHeight: 1.65 }}>{it.desc}</div>
+              </div>
+              <div style={{
+                marginTop: 'auto', paddingTop: 16, borderTop: '1px solid var(--stroke-1)',
+                fontSize: 12, color: 'var(--fg-4)',
+              }}>
+                <div style={{ letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 4 }}>EXIT 예시</div>
+                <div style={{ color: 'var(--fg-2)' }}>{it.exit}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Wake-up call callout */}
+        <div style={{
+          padding: '28px 32px',
+          background: 'rgba(255, 77, 109, 0.08)',
+          border: '1px solid rgba(255, 77, 109, 0.24)',
+          borderRadius: 12, display: 'flex', gap: 20, alignItems: 'flex-start',
+        }}>
+          <div style={{
+            fontSize: 28, flexShrink: 0, marginTop: 2,
+            color: 'var(--signal-danger)',
+          }}>!</div>
+          <div>
+            <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--fg-1)', marginBottom: 8, letterSpacing: '-0.02em' }}>
+              "포폴은 있는데 면접관이 'BX가 아닌데요'라고 하더라고요."
+            </div>
+            <div style={{ fontSize: 15, color: 'var(--fg-3)', lineHeight: 1.65 }}>
+              방향을 모르는 상태에서 포폴을 만들면, 만들수록 방향을 잃습니다. 90일의 시작은 직무 정의입니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+window.AIBXKit = Object.assign(window.AIBXKit || {}, { PainSection });
+
+  </script>
+
+  <script type="text/babel">
+/* global React */
+const { useEffect: useEffect_sal, useState: useState_sal } = React;
+
+function Bar({ label, value, max = 100, color, suffix = '%', delay = 0, animate }) {
+  const w = animate ? `${(value / max) * 100}%` : '0%';
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--fg-2)' }}>
+        <span>{label}</span>
+        <span style={{ color: 'var(--fg-1)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>{value}{suffix}</span>
+      </div>
+      <div style={{ height: 8, background: 'var(--bg-3)', borderRadius: 4, overflow: 'hidden' }}>
+        <div style={{
+          height: '100%', width: w,
+          background: color,
+          borderRadius: 4,
+          transition: `width 1100ms cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`,
+        }} />
+      </div>
+    </div>
+  );
+}
+
+function SalaryComparison() {
+  // Animate in on mount (after one frame so the 0% → target transition runs).
+  const [animate, setAnimate] = useState_sal(false);
+  useEffect_sal(() => {
+    const t = setTimeout(() => setAnimate(true), 220);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <section id="market" style={{
+      padding: '120px 24px',
+      background: 'var(--bg-1)',
+    }}>
+      <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+        <div className="eyebrow" style={{ marginBottom: 16 }}>MARKET REALITY</div>
+        <h2 style={{
+          fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900,
+          letterSpacing: '-0.03em', lineHeight: 1.1, color: 'var(--fg-1)',
+          marginBottom: 24, maxWidth: 880,
+        }}>
+          왜 같은 디자이너인데<br />
+          누군 <span style={{ color: 'var(--accent-hi)' }}>3,650만원</span>으로<br />
+          시작할까요?
+        </h2>
+        <p style={{ fontSize: 18, color: 'var(--fg-3)', marginBottom: 56, maxWidth: 720, lineHeight: 1.65 }}>
+          BX·프로덕트 디자이너의 초봉 평균은 <strong style={{ color: 'var(--fg-1)' }}>3,650만원</strong>.
+          문제는 비전공자에게 이 트랙의 문이 거의 닫혀있다는 사실입니다.
+        </p>
+
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 32,
+          background: 'var(--bg-2)', border: '1px solid var(--stroke-1)',
+          borderRadius: 20, padding: 40,
+        }}>
+          {/* LEFT — bars */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            <div style={{ fontSize: 13, color: 'var(--fg-4)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+              디자이너 채용 시 우선 검토 비율
+            </div>
+            <Bar label="전공자" value={80.5} color="var(--accent)" delay={0} animate={animate} />
+            <Bar label="디자인 학원 수료자" value={70.8} color="var(--accent-hi)" delay={120} animate={animate} />
+            <Bar label="비전공 + 포트폴리오" value={60.5} color="var(--signal-warn)" delay={240} animate={animate} />
+            <Bar label="비전공 + 무경력" value={22.3} color="var(--signal-danger)" delay={360} animate={animate} />
+            <div style={{ fontSize: 11, color: 'var(--fg-4)', marginTop: 8 }}>
+              * 2025년 디자이너 채용담당자 인터뷰 (n=320), 내부 조사 자료
+            </div>
+          </div>
+
+          {/* RIGHT — featured stat */}
+          <div style={{
+            background: 'var(--accent-tint)', border: '1px solid var(--accent-tint-2)',
+            borderRadius: 16, padding: 28,
+            display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+          }}>
+            <div>
+              <div className="eyebrow" style={{ color: 'var(--accent-hi)', marginBottom: 12 }}>STARTING SALARY</div>
+              <div style={{ fontSize: 64, fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, color: 'var(--fg-1)' }}>
+                3,650<span style={{ fontSize: 22, marginLeft: 4 }}>만원</span>
+              </div>
+              <div style={{ fontSize: 14, color: 'var(--fg-3)', marginTop: 8 }}>
+                BX · 프로덕트 디자이너 초봉 평균
+              </div>
+            </div>
+            <div style={{
+              marginTop: 24, padding: '12px 14px',
+              background: 'rgba(255, 77, 109, 0.12)', borderRadius: 8,
+              fontSize: 12, color: 'var(--signal-danger)', lineHeight: 1.6,
+            }}>
+              하지만 <strong>비전공·무경력</strong>은 위 트랙에서 <strong>77.7%</strong> 사전 컷.
+              포트폴리오만이 유일한 입장권입니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+window.AIBXKit = Object.assign(window.AIBXKit || {}, { SalaryComparison });
+
+  </script>
+
+  <script type="text/babel">
+/* global React */
+
+// Portfolio examples from Part 1 (AI image production)
+// Images: place actual files at ../../assets/portfolio-examples/p1-floral-beauty.png etc.
+const EXAMPLES = [
+  { id: 1, src: '../../assets/portfolio-examples/p1-floral-beauty.png', label: 'BEAUTY · Floral Campaign', sub: 'Midjourney + Photoshop' },
+  { id: 2, src: '../../assets/portfolio-examples/p2-record-shop.png', label: 'SPACE · Record Shop Mood', sub: 'AI 장소 비주얼' },
+  { id: 3, src: '../../assets/portfolio-examples/p3-beauty-portrait.png', label: 'BEAUTY · Campaign Portrait', sub: 'Midjourney + Firefly' },
+  { id: 4, src: '../../assets/portfolio-examples/p4-perfume-forest.png', label: 'FRAGRANCE · Forest Bottle', sub: '3D Concept Visual' },
+  { id: 5, src: '../../assets/portfolio-examples/p5-start-today.png', label: 'EDITORIAL · Start Today', sub: 'AI Poster Design' },
+  { id: 6, src: '../../assets/portfolio-examples/p6-promt.png', label: 'FASHION · promt. Campaign', sub: 'Midjourney + Retouching' },
+  { id: 7, src: '../../assets/portfolio-examples/p7-chocolate.png', label: 'F&B · Chocolate Product', sub: 'AI 제품 비주얼' },
+  { id: 8, src: '../../assets/portfolio-examples/p8-cyber-beauty.png', label: 'BEAUTY · Cyber Concept', sub: 'Midjourney 컨셉 디자인' },
+  { id: 9, src: '../../assets/portfolio-examples/p9-elf-beauty.png', label: 'BRAND · e.l.f Campaign', sub: 'BX 브랜드 비주얼' },
+];
+
+function PortfolioPreview() {
+  return (
+    <section id="portfolio-preview" style={{
+      padding: '120px 24px',
+      background: 'var(--bg-1)',
+    }}>
+      <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+        <div className="eyebrow" style={{ marginBottom: 16 }}>PORTFOLIO PREVIEW · PART 1 OUTPUT</div>
+        <h2 style={{
+          fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900,
+          letterSpacing: '-0.03em', lineHeight: 1.1, color: 'var(--fg-1)',
+          marginBottom: 16,
+        }}>
+          Day 11, 첫 결과물.<br />
+          <span style={{ color: 'var(--accent-hi)' }}>이런 걸 만들게 됩니다.</span>
+        </h2>
+        <p style={{ fontSize: 18, color: 'var(--fg-3)', marginBottom: 48, maxWidth: 720, lineHeight: 1.6 }}>
+          Part 1 (Day 1–11)에서 AI 이미지 제작 키트를 완성합니다.
+          뷰티·식품·패션·편집 — 실무 브리프 기반의 결과물입니다.
+        </p>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: 12,
+        }}>
+          {EXAMPLES.map((ex) => (
+            <div key={ex.id} style={{
+              borderRadius: 12, overflow: 'hidden',
+              background: 'var(--bg-2)',
+              border: '1px solid var(--stroke-1)',
+              aspectRatio: '4/3',
+              position: 'relative',
+            }}>
+              <img
+                src={ex.src}
+                alt={ex.label}
+                style={{
+                  width: '100%', height: '100%',
+                  objectFit: 'cover', display: 'block',
+                }}
+                onError={(e) => { e.target.style.display = 'none'; }}
+              />
+              <div style={{
+                position: 'absolute', bottom: 0, left: 0, right: 0,
+                padding: '40px 16px 14px',
+                background: 'linear-gradient(to top, rgba(10,10,15,0.92) 0%, transparent 100%)',
+              }}>
+                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--accent-hi)', marginBottom: 3 }}>
+                  {ex.label}
+                </div>
+                <div style={{ fontSize: 11, color: 'var(--fg-4)' }}>{ex.sub}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{
+          marginTop: 32, padding: '20px 24px',
+          background: 'var(--bg-2)', border: '1px solid var(--stroke-1)',
+          borderRadius: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          flexWrap: 'wrap', gap: 16,
+        }}>
+          <div>
+            <div style={{ fontWeight: 700, color: 'var(--fg-1)', fontSize: 15, marginBottom: 4 }}>
+              이건 Day 11의 결과물입니다.
+            </div>
+            <div style={{ color: 'var(--fg-3)', fontSize: 14 }}>
+              3개의 최종 포트폴리오는 Day 57, 72, 87에 완성됩니다.
+            </div>
+          </div>
+          <a href="#curriculum" style={{
+            padding: '10px 20px', borderRadius: 9999,
+            background: 'var(--bg-3)', color: 'var(--fg-1)',
+            border: '1px solid var(--stroke-1)', fontSize: 13, fontWeight: 600,
+          }}>커리큘럼 전체 보기 →</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+window.AIBXKit = Object.assign(window.AIBXKit || {}, { PortfolioPreview });
+
+  </script>
+
+  <script type="text/babel">
+/* global React */
+const { useState: useState_curr } = React;
+
+function Curriculum() {
+  const [tab, setTab] = useState_curr(0);
+  const phases = [
+    {
+      key: 'P1',
+      day: 'Day 1–11',
+      title: '디자인 기초 + AI 시각 제작',
+      goal: 'PD/BX/콘텐츠 차이 정의부터 AI로 광고급 비주얼까지',
+      hooks: [
+        '폰트 하나로 브랜드 가격을 10배 올리는 법',
+        '마뗑킴은 왜 같은 그래픽을 100번 반복하는가',
+        '스크롤 0.5초에 손가락을 멈추게 하는 카드뉴스의 비밀',
+      ],
+      out: 'AI 시각 제작 키트',
+      tools: ['GPT', 'Midjourney', 'Firefly', 'Photoshop', 'Illustrator', 'Pinterest'],
+    },
+    {
+      key: 'P2-1',
+      day: 'Day 12–20',
+      title: 'Figma 디지털 접점 설계',
+      goal: 'Auto Layout · Component · 시스템 컬러 — 클론 가능한 화면까지',
+      hooks: [
+        '깨지지 않는 화면을 만드는 단 하나의 규칙 — Auto Layout',
+        '한 번 만들면 100번 쓰는 UI 부품 만들기',
+        '좋아하는 랜딩 페이지 똑같이 만들어보기 (Mobbin)',
+      ],
+      out: '클론 가능한 Figma 디지털 접점',
+      tools: ['Figma', 'Mobbin', 'Notion'],
+    },
+    {
+      key: 'P2-2',
+      day: 'Day 21–27',
+      title: '더블 다이아몬드 BX 리서치',
+      goal: '리뷰 데이터 → 페르소나 → 포지셔닝까지 BX 사고법',
+      hooks: [
+        '5점 리뷰보다 1점 리뷰가 돈이 되는 이유 (VOC 30+)',
+        '리서치 100장을 한 문장으로 줄이는 법',
+        '누구에게, 어떻게 보여야 선택되는가',
+      ],
+      out: 'BX 리서치 리포트 — Double Diamond',
+      tools: ['Notion', 'GPT', 'Claude', 'Sheets'],
+    },
+    {
+      key: 'P3-1',
+      day: 'Day 28–31',
+      title: '프로토타입 기반 랜딩 재설계',
+      goal: '첫 5초가 결정하는 랜딩 — IA 베껴서 내 것으로',
+      hooks: [
+        '첫 화면 5초가 결정짓는 모든 것',
+        '좋은 랜딩의 IA를 베껴서 내 것으로 만들기',
+        '리브랜딩한 페이지가 진짜로 작동하게 만드는 법',
+      ],
+      out: '클릭 가능한 리브랜딩 프로토타입',
+      tools: ['Figma', 'Mobbin'],
+    },
+    {
+      key: 'P3-2',
+      day: 'Day 32–36',
+      title: 'Tistory 기반 문제 발견',
+      goal: '검색되는 디자이너 — GA4로 데이터 인사이트 추출',
+      hooks: [
+        '검색되는 디자이너가 되는 첫 번째 글',
+        '내 글이 누구에게 어떻게 도착하는지 보는 법 (GA4)',
+        '같은 글인데 제목 하나로 조회수가 10배',
+      ],
+      out: '데이터 인사이트 리포트 (Tistory + GA4)',
+      tools: ['Tistory', 'GA4', 'Search Console'],
+    },
+    {
+      key: 'P3-3',
+      day: 'Day 37–41',
+      title: 'AI 벤치마킹 신규 브랜드 기획',
+      goal: '1시간만에 끝내는 AI 경쟁사 분석 → 네이밍·슬로건',
+      hooks: [
+        'AI에게 시키지 않으면 보이지 않는 5가지',
+        '경쟁사 분석을 1시간에 끝내는 AI 워크플로우',
+        '새 브랜드의 이름과 첫 마디를 짓는 AI 사용법',
+      ],
+      out: '신규 브랜드 기획안 v1',
+      tools: ['GPT', 'Claude', 'Midjourney'],
+    },
+    {
+      key: 'P3-4',
+      day: 'Day 42–49',
+      title: '웹 이론 + Antigravity 바이브 코딩',
+      goal: '코드 없이 진짜 웹 포트폴리오를 배포까지',
+      hooks: [
+        'CSS는 그림이다 (Auto Layout ↔ Flex/Grid)',
+        '코드 없이 웹 만들기 — Antigravity 첫 화면',
+        '케이스 페이지가 채용 담당자에게 읽히는 구조',
+      ],
+      out: '웹 포트폴리오 (Antigravity 배포)',
+      tools: ['Antigravity', 'GitHub Pages', 'Figma'],
+    },
+    {
+      key: 'MINI',
+      day: 'Day 50–57',
+      title: '미니 프로젝트 — VOC 리브랜딩',
+      goal: '진짜 고객이 화나 있는 브랜드를 골라 리브랜딩',
+      hooks: [
+        '별점 1점이 가장 비싼 정보다 (VOC 50+)',
+        '50개 불만에서 3개의 진짜 문제',
+        '고객의 말로 브랜드를 다시 쓴다',
+      ],
+      out: '포트폴리오 #1 — VOC 리브랜딩',
+      tools: ['Figma', 'GPT', 'Notion'],
+      featured: true,
+    },
+    {
+      key: 'PJT-1',
+      day: 'Day 58–72',
+      title: '프로젝트 1 — 비즈니스 분석 리브랜딩',
+      goal: '시장에 살아있는 비즈니스 BM 분석 + 랜딩 개선',
+      hooks: [
+        '경쟁사 5개의 랜딩이 똑같이 실패하는 이유',
+        '구매하지 않은 70명의 마음 (VOC 70+)',
+        '메시지에 맞는 비주얼만 살아남는다',
+      ],
+      out: '포트폴리오 #2 — 비즈니스 리브랜딩',
+      tools: ['Figma', 'Midjourney', 'GA4', 'Claude'],
+      featured: true,
+    },
+    {
+      key: 'PJT-2',
+      day: 'Day 73–87',
+      title: '프로젝트 2 — 신규 브랜드 런칭',
+      goal: 'Value Proposition Canvas부터 실제 URL 배포까지',
+      hooks: [
+        '시장의 빈틈 한 곳에 새 브랜드를 세운다',
+        '런칭 결과를 진짜 URL로 만든다 (Antigravity + GitHub Pages)',
+        '멘토 한 마디로 결과물이 달라지는 순간',
+      ],
+      out: '포트폴리오 #3 — 신규 브랜드 런칭',
+      tools: ['Antigravity', 'Figma', 'Firefly', 'GitHub'],
+      featured: true,
+    },
+    {
+      key: 'CAREER',
+      day: 'Day 88–90',
+      title: '취업 컨설팅',
+      goal: '포폴 → 이력서 → 지원 패키지 완성',
+      hooks: [
+        '현업자가 1초 안에 거르는 포트폴리오',
+        '무경력의 프로젝트를 경력처럼 쓰는 법',
+        '90일의 결과를 취업으로 연결한다',
+      ],
+      out: '취업 패키지 (이력서·자소서·지원 흐름)',
+      tools: ['Notion', '현업 멘토 1:1'],
+    },
+  ];
+
+  const cur = phases[tab];
+
+  return (
+    <section id="curriculum" style={{ padding: '120px 24px', background: 'var(--bg-2)', position: 'relative' }}>
+      <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+        <div className="eyebrow" style={{ marginBottom: 16 }}>CURRICULUM · 90 DAYS</div>
+        <h2 style={{
+          fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900,
+          letterSpacing: '-0.03em', lineHeight: 1.1, color: 'var(--fg-1)',
+          marginBottom: 16,
+        }}>
+          11개 단계.<br />매 단계 손에 쥐는 결과물.
+        </h2>
+        <p style={{ fontSize: 18, color: 'var(--fg-3)', marginBottom: 40, maxWidth: 720, lineHeight: 1.6 }}>
+          강의를 듣고 끝나는 게 아닙니다. 매 단계 산출물이 쌓여
+          <strong style={{ color: 'var(--fg-1)' }}> 3개의 BX 포트폴리오 + 취업 패키지</strong>가 됩니다.
+        </p>
+
+        {/* Phase chip tabs */}
+        <div style={{
+          display: 'flex', gap: 8, marginBottom: 32, flexWrap: 'wrap',
+        }}>
+          {phases.map((p, i) => (
+            <button key={i} onClick={() => setTab(i)} style={{
+              padding: '10px 16px', borderRadius: 9999,
+              background: tab === i ? 'var(--accent)' : (p.featured ? 'rgba(255, 212, 0, 0.10)' : 'var(--bg-3)'),
+              color: tab === i ? 'white' : (p.featured ? 'var(--signal-warn)' : 'var(--fg-2)'),
+              border: tab === i
+                ? '1px solid var(--accent)'
+                : (p.featured ? '1px solid rgba(255, 212, 0, 0.32)' : '1px solid var(--stroke-1)'),
+              fontSize: 12, fontWeight: 700, fontFamily: 'var(--font-sans)',
+              cursor: 'pointer', transition: 'all 220ms var(--ease-out)',
+              letterSpacing: '-0.01em',
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+            }}>
+              <span style={{ fontFamily: 'var(--font-mono)', opacity: 0.7 }}>{p.key}</span>
+              <span>{p.title}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Active phase panel */}
+        <div style={{
+          background: 'var(--bg-1)', border: '1px solid var(--stroke-1)',
+          borderRadius: 20, padding: 40,
+          display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 48,
+        }}>
+          <div>
+            <div style={{
+              fontSize: 12, color: 'var(--accent-hi)', fontWeight: 700,
+              letterSpacing: '0.18em', marginBottom: 12,
+            }}>{cur.day} · {cur.key}</div>
+            <h3 style={{ fontSize: 32, fontWeight: 900, letterSpacing: '-0.02em', color: 'var(--fg-1)', marginBottom: 16 }}>
+              {cur.title}
+            </h3>
+            <p style={{ fontSize: 16, color: 'var(--fg-3)', lineHeight: 1.65, marginBottom: 28 }}>
+              {cur.goal}
+            </p>
+            <div style={{ fontSize: 11, color: 'var(--fg-4)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 12 }}>
+              SAMPLE CHAPTERS
+            </div>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {cur.hooks.map((h, i) => (
+                <li key={i} style={{
+                  display: 'flex', alignItems: 'flex-start', gap: 12,
+                  color: 'var(--fg-1)', fontSize: 15, fontWeight: 500, letterSpacing: '-0.01em',
+                  lineHeight: 1.5,
+                }}>
+                  <span style={{
+                    fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--accent-hi)',
+                    background: 'var(--accent-tint)', padding: '3px 7px', borderRadius: 4,
+                    flexShrink: 0, marginTop: 4, letterSpacing: '0.06em',
+                  }}>CH</span>
+                  <span>"{h}"</span>
+                </li>
+              ))}
+            </ul>
+            {cur.tools && (
+              <div style={{ marginTop: 28, paddingTop: 24, borderTop: '1px solid var(--stroke-1)' }}>
+                <div style={{ fontSize: 11, color: 'var(--fg-4)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 10 }}>
+                  TOOLS
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                  {cur.tools.map((t, i) => (
+                    <span key={i} style={{
+                      fontSize: 12, fontWeight: 600,
+                      padding: '5px 10px', borderRadius: 6,
+                      background: 'var(--bg-3)', color: 'var(--fg-2)',
+                      border: '1px solid var(--stroke-1)',
+                      letterSpacing: '-0.01em',
+                    }}>{t}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+          <div style={{
+            background: cur.featured ? 'rgba(255, 212, 0, 0.08)' : 'var(--accent-tint)',
+            border: `1px solid ${cur.featured ? 'rgba(255, 212, 0, 0.32)' : 'var(--accent-tint-2)'}`,
+            borderRadius: 12, padding: 32, display: 'flex', flexDirection: 'column', gap: 8,
+            alignSelf: 'start',
+          }}>
+            <div className="eyebrow" style={{ color: cur.featured ? 'var(--signal-warn)' : 'var(--accent-hi)' }}>
+              {cur.featured ? '★ PORTFOLIO MILESTONE' : 'DELIVERABLE'}
+            </div>
+            <div style={{
+              fontSize: 28, fontWeight: 900, letterSpacing: '-0.03em',
+              color: 'var(--fg-1)', lineHeight: 1.15,
+            }}>
+              {cur.out}
+            </div>
+            <div style={{ fontSize: 13, color: 'var(--fg-3)', marginTop: 8 }}>
+              {cur.featured
+                ? '지원서에 첨부할 수 있는 진짜 케이스 스터디.'
+                : '다음 단계의 재료로 그대로 이어집니다.'}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+window.AIBXKit = Object.assign(window.AIBXKit || {}, { Curriculum });
+
+  </script>
+
+  <script type="text/babel">
+/* global React */
+
+function ChapterHooks() {
+  const hooks = [
+    { day: 4, t: '폰트 하나로 브랜드 가격을 10배 올리는 법' },
+    { day: 6, t: '마뗑킴은 왜 같은 그래픽을 100번 반복하는가' },
+    { day: 9, t: '스크롤 0.5초에 손가락을 멈추게 하는 카드뉴스의 비밀' },
+    { day: 23, t: '5점 리뷰보다 1점 리뷰가 돈이 되는 이유' },
+    { day: 28, t: '첫 화면 5초가 결정짓는 모든 것' },
+    { day: 47, t: '코드 없이 웹 만들기 — Antigravity 첫 화면' },
+    { day: 51, t: '별점 1점이 가장 비싼 정보다' },
+    { day: 88, t: '현업자가 1초 안에 거르는 포트폴리오' },
+    { day: 89, t: '무경력의 프로젝트를 경력처럼 쓰는 법' },
+  ];
+
+  return (
+    <section id="chapters" style={{
+      padding: '120px 24px',
+      background: 'var(--bg-2)',
+    }}>
+      <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+        <div className="eyebrow" style={{ marginBottom: 16 }}>SAMPLE CHAPTERS</div>
+        <h2 style={{
+          fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900,
+          letterSpacing: '-0.03em', lineHeight: 1.1, color: 'var(--fg-1)',
+          marginBottom: 24, maxWidth: 880,
+        }}>
+          매일 한 챕터,<br />매일 한 무기.
+        </h2>
+        <p style={{ fontSize: 18, color: 'var(--fg-3)', marginBottom: 56, maxWidth: 720, lineHeight: 1.6 }}>
+          90일 동안 90개의 챕터. 일부만 미리 보여드립니다.
+        </p>
+
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 12,
+        }}>
+          {hooks.map((h, i) => (
+            <div key={i} style={{
+              background: 'var(--bg-1)', border: '1px solid var(--stroke-1)',
+              borderRadius: 12, padding: '20px 22px',
+              display: 'flex', flexDirection: 'column', gap: 10,
+              transition: 'border-color 220ms var(--ease-out)',
+            }}>
+              <div style={{
+                fontSize: 10, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em',
+                color: 'var(--accent-hi)', textTransform: 'uppercase',
+              }}>DAY {String(h.day).padStart(2, '0')}</div>
+              <div style={{
+                fontSize: 17, fontWeight: 700, color: 'var(--fg-1)',
+                letterSpacing: '-0.02em', lineHeight: 1.35,
+              }}>"{h.t}"</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{
+          marginTop: 32, textAlign: 'center', color: 'var(--fg-4)', fontSize: 13,
+        }}>
+          + 81개 챕터가 더 있습니다.
+        </div>
+      </div>
+    </section>
+  );
+}
+
+window.AIBXKit = Object.assign(window.AIBXKit || {}, { ChapterHooks });
+
+  </script>
+
+  <script type="text/babel">
+/* global React */
+
+function ToolStack() {
+  const groups = [
+    {
+      cat: 'AI',
+      color: 'var(--accent-hi)',
+      items: [
+        { name: 'ChatGPT', logo: window.__resources.logoOpenai, bg: '#FFFFFF' },
+        { name: 'Claude', logo: window.__resources.logoAnthropic, bg: '#FFFFFF' },
+        { name: 'Midjourney', logo: window.__resources.logoMidjourney, bg: '#FFFFFF' },
+        { name: 'Firefly', logo: window.__resources.logoFirefly, bg: '#E6EBF1' },
+      ],
+    },
+    {
+      cat: 'DESIGN',
+      color: 'var(--signal-success)',
+      items: [
+        { name: 'Figma', logo: window.__resources.logoFigma, bg: '#FFFFFF' },
+        { name: 'Adobe CC', logo: window.__resources.logoAdobe, bg: '#F5F5F7' },
+      ],
+    },
+    {
+      cat: 'RESEARCH',
+      color: 'var(--signal-warn)',
+      items: [
+        { name: 'Notion' }, { name: 'Pinterest' }, { name: 'Behance' }, { name: 'Mobbin' },
+      ],
+    },
+    {
+      cat: 'DATA',
+      color: '#FF8FA3',
+      items: [
+        { name: 'Tistory' }, { name: 'GA4' }, { name: 'Search Console' }, { name: 'Sheets' },
+      ],
+    },
+    {
+      cat: 'WEB · 바이브 코딩',
+      color: 'var(--accent-hi)',
+      items: [
+        { name: 'Antigravity', badge: 'USP' }, { name: 'GitHub Pages' }, { name: 'Chrome DevTools' },
+      ],
+    },
+  ];
+
+  return (
+    <section id="tools" style={{ padding: '120px 24px' }}>
+      <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+        <div className="eyebrow" style={{ marginBottom: 16 }}>TOOL STACK · 100% INCLUDED</div>
+        <h2 style={{
+          fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900,
+          letterSpacing: '-0.03em', lineHeight: 1.1, color: 'var(--fg-1)',
+          marginBottom: 24, maxWidth: 880,
+        }}>
+          현업 디자이너가 쓰는 도구,<br />다 받고 시작합니다.
+        </h2>
+        <p style={{ fontSize: 18, color: 'var(--fg-3)', marginBottom: 56, maxWidth: 720, lineHeight: 1.6 }}>
+          AI · 디자인 · 리서치 · 데이터 · 웹 — 단계별 산출물에 필요한 모든 도구가
+          <strong style={{ color: 'var(--fg-1)' }}> 수강료 안에 포함</strong>됩니다.
+        </p>
+
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16,
+        }}>
+          {groups.map((g, i) => (
+            <div key={i} style={{
+              background: 'var(--bg-2)', border: '1px solid var(--stroke-1)',
+              borderRadius: 12, padding: 24,
+            }}>
+              <div style={{
+                fontSize: 11, fontWeight: 700, letterSpacing: '0.18em',
+                color: g.color, marginBottom: 16,
+              }}>{g.cat}</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                {g.items.map((t, j) => (
+                  <span key={j} style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 8,
+                    fontSize: 13, fontWeight: 600,
+                    padding: '6px 12px 6px 6px', borderRadius: 9999,
+                    background: 'var(--bg-3)', color: 'var(--fg-1)',
+                    border: '1px solid var(--stroke-1)',
+                    letterSpacing: '-0.01em',
+                  }}>
+                    {t.logo ? (
+                      <img src={t.logo} alt={t.name} style={{
+                        width: 22, height: 22, borderRadius: 6, objectFit: 'contain',
+                        background: t.bg || '#fff', padding: 2,
+                      }} />
+                    ) : (
+                      <span style={{
+                        width: 22, height: 22, borderRadius: 6,
+                        background: 'var(--bg-4)', display: 'grid', placeItems: 'center',
+                        fontSize: 11, fontWeight: 900, color: 'var(--fg-3)',
+                      }}>{t.name[0]}</span>
+                    )}
+                    {t.name}
+                    {t.badge && (
+                      <span style={{
+                        fontSize: 9, fontWeight: 900, letterSpacing: '0.08em',
+                        padding: '2px 5px', borderRadius: 4,
+                        background: 'var(--accent)', color: 'white',
+                      }}>{t.badge}</span>
+                    )}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{
+          marginTop: 24, padding: '14px 18px',
+          background: 'var(--accent-tint)', borderRadius: 12,
+          border: '1px solid var(--accent-tint-2)',
+          fontSize: 13, color: 'var(--fg-2)',
+        }}>
+          <strong style={{ color: 'var(--fg-1)' }}>＋장비</strong> M1 Pro 맥북 · 5만원 마우스 · 10만원 상당 BX 도서 4권
+        </div>
+      </div>
+    </section>
+  );
+}
+
+window.AIBXKit = Object.assign(window.AIBXKit || {}, { ToolStack });
+
+  </script>
+
+  <script type="text/babel">
+/* global React */
+
+function CompetitorComparison() {
+  const rows = [
+    { label: '직무 범위', us: 'BX + Product + UX/UI 통합', sparta: '콘텐츠 단일', remain: 'UXUI 단일' },
+    { label: '기간', us: '90일 (3개월)', usWin: true, sparta: '4개월', remain: '8주 오프라인' },
+    { label: '자기부담금', us: '50만원', usWin: true, sparta: '약 100만원', remain: '94만원' },
+    { label: '포트폴리오', us: '3개 (개인 BX 케이스)', usWin: true, sparta: '5개 팀 프로젝트', remain: '1.5개' },
+    { label: 'AI 풀스택', us: 'GPT·Claude·MJ·Firefly·Antigravity', usWin: true, sparta: 'GPT·Gemini·MJ 등', remain: '미포함' },
+    { label: '바이브 코딩 (Antigravity)', us: '✓ 진짜 URL 배포까지', usWin: true, sparta: '없음', remain: '없음' },
+    { label: '취업 매칭 지원', us: '6개월 인턴십 매칭 + 무제한 코칭', usWin: true, sparta: '인턴십 연계 + 무제한 코칭', remain: '카톡방 1,200+' },
+  ];
+
+  return (
+    <section id="compare" style={{ padding: '120px 24px', background: 'var(--bg-1)' }}>
+      <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+        <div className="eyebrow" style={{ marginBottom: 16 }}>WHY US · COMPARE</div>
+        <h2 style={{
+          fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900,
+          letterSpacing: '-0.03em', lineHeight: 1.1, color: 'var(--fg-1)',
+          marginBottom: 24, maxWidth: 880,
+        }}>
+          다른 부트캠프와 무엇이 다른가요?
+        </h2>
+        <p style={{ fontSize: 17, color: 'var(--fg-3)', marginBottom: 48, maxWidth: 720, lineHeight: 1.65 }}>
+          숫자만 봅니다. 카피로 포장하지 않고.
+        </p>
+
+        <div style={{
+          background: 'var(--bg-2)', border: '1px solid var(--stroke-1)',
+          borderRadius: 20, overflow: 'hidden',
+        }}>
+          <div style={{
+            display: 'grid', gridTemplateColumns: '1.2fr 1.6fr 1.2fr 1.2fr',
+            background: 'var(--bg-3)', borderBottom: '1px solid var(--stroke-1)',
+          }}>
+            <div style={{ padding: '18px 20px', fontSize: 11, color: 'var(--fg-4)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>항목</div>
+            <div style={{
+              padding: '18px 20px', fontSize: 14, fontWeight: 800,
+              color: 'var(--accent-hi)', letterSpacing: '-0.01em',
+              borderLeft: '1px solid var(--stroke-1)', borderRight: '1px solid var(--stroke-1)',
+              background: 'var(--accent-tint)',
+            }}>
+              ★ AI BX 프로덕트 디자이너
+            </div>
+            <div style={{ padding: '18px 20px', fontSize: 13, color: 'var(--fg-3)', borderRight: '1px solid var(--stroke-1)' }}>스파르타클럽 AI 콘텐츠</div>
+            <div style={{ padding: '18px 20px', fontSize: 13, color: 'var(--fg-3)' }}>리메인커리어 UXUI</div>
+          </div>
+
+          {rows.map((r, i) => (
+            <div key={i} style={{
+              display: 'grid', gridTemplateColumns: '1.2fr 1.6fr 1.2fr 1.2fr',
+              borderBottom: i < rows.length - 1 ? '1px solid var(--stroke-1)' : 'none',
+              fontSize: 14,
+            }}>
+              <div style={{ padding: '18px 20px', color: 'var(--fg-3)', fontWeight: 500 }}>{r.label}</div>
+              <div style={{
+                padding: '18px 20px',
+                color: 'var(--fg-1)', fontWeight: 700,
+                letterSpacing: '-0.01em',
+                borderLeft: '1px solid var(--stroke-1)', borderRight: '1px solid var(--stroke-1)',
+                background: r.usWin ? 'rgba(61, 90, 254, 0.06)' : 'transparent',
+                display: 'flex', alignItems: 'center', gap: 8,
+              }}>
+                {r.usWin && (
+                  <span style={{
+                    fontSize: 10, fontWeight: 900, letterSpacing: '0.08em',
+                    padding: '2px 6px', borderRadius: 4,
+                    background: 'var(--accent)', color: 'white',
+                  }}>WIN</span>
+                )}
+                {r.us}
+              </div>
+              <div style={{ padding: '18px 20px', color: 'var(--fg-2)', borderRight: '1px solid var(--stroke-1)' }}>{r.sparta}</div>
+              <div style={{ padding: '18px 20px', color: 'var(--fg-2)' }}>{r.remain}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{
+          marginTop: 24, fontSize: 12, color: 'var(--fg-4)',
+        }}>
+          * 2026.05 기준 공개 정보. 출처: 각 사 공식 랜딩페이지.
+        </div>
+      </div>
+    </section>
+  );
+}
+
+window.AIBXKit = Object.assign(window.AIBXKit || {}, { CompetitorComparison });
+
+  </script>
+
+  <script type="text/babel">
+/* global React */
+
+function Mentors() {
+  const mentors = [
+    { initial: '토', co: '토스', role: 'Lead BX Designer', name: '김 멘토', exp: '10년 차' },
+    { initial: '카', co: '카카오', role: 'Senior Product Designer', name: '이 멘토', exp: '8년 차' },
+    { initial: 'A', co: 'ably', role: 'Brand Designer', name: '박 멘토', exp: '7년 차' },
+    { initial: 'L', co: 'LG생활건강', role: 'BX Strategist', name: '최 멘토', exp: '12년 차' },
+    { initial: '요', co: '요기요', role: 'Product Designer', name: '정 멘토', exp: '6년 차' },
+    { initial: 'K', co: 'KRAFTON', role: 'Visual Designer', name: '윤 멘토', exp: '9년 차' },
+  ];
+  const palettes = [
+    ['#3D5AFE', '#7B8CFF'],
+    ['#FFD400', '#FFA62B'],
+    ['#FF4D6D', '#FF8FA3'],
+    ['#00E5A0', '#5DECCB'],
+    ['#7B8CFF', '#3D5AFE'],
+    ['#FFA62B', '#FFD400'],
+  ];
+  return (
+    <section id="mentors" style={{ padding: '120px 24px' }}>
+      <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+        <div className="eyebrow" style={{ marginBottom: 16 }}>MENTORS</div>
+        <h2 style={{
+          fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900,
+          letterSpacing: '-0.03em', lineHeight: 1.1, color: 'var(--fg-1)',
+          marginBottom: 16,
+        }}>
+          현업자가 직접<br />당신 옆에 앉습니다.
+        </h2>
+        <p style={{ fontSize: 18, color: 'var(--fg-3)', marginBottom: 56, maxWidth: 720 }}>
+          토스 · 카카오 · ably · LG생활건강 · 요기요 · 크래프톤 · 넷마블 출신 현역 디자이너 12명이 12주 동안 1:1 멘토링합니다.
+        </p>
+
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16,
+        }}>
+          {mentors.map((m, i) => (
+            <div key={i} style={{
+              background: 'var(--bg-2)', border: '1px solid var(--stroke-1)',
+              borderRadius: 12, padding: 24, display: 'flex', alignItems: 'center', gap: 16,
+              transition: 'border-color 220ms var(--ease-out)',
+            }}>
+              <div style={{
+                width: 60, height: 60, borderRadius: '50%', flexShrink: 0,
+                background: `linear-gradient(135deg, ${palettes[i][0]}, ${palettes[i][1]})`,
+                display: 'grid', placeItems: 'center',
+                color: 'white', fontWeight: 900, fontSize: 22, letterSpacing: '-0.04em',
+              }}>{m.initial}</div>
+              <div style={{ minWidth: 0 }}>
+                <div style={{ fontSize: 11, color: 'var(--fg-4)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 4 }}>{m.co} · {m.exp}</div>
+                <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--fg-1)', letterSpacing: '-0.01em', marginBottom: 2 }}>{m.name}</div>
+                <div style={{ fontSize: 13, color: 'var(--fg-3)' }}>{m.role}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{
+          marginTop: 32, padding: '20px 24px',
+          background: 'var(--bg-3)', border: '1px solid var(--stroke-1)',
+          borderRadius: 12, color: 'var(--fg-3)', fontSize: 14,
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12,
+        }}>
+          <span>+ 미공개 멘토 6명이 매주 새로운 실무 케이스를 공유합니다.</span>
+          <a href="#mentors" style={{ color: 'var(--accent-hi)', fontWeight: 600, fontSize: 14 }}>전체 멘토진 보기 →</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+window.AIBXKit = Object.assign(window.AIBXKit || {}, { Mentors });
+
+  </script>
+
+  <script type="text/babel">
+/* global React */
+
+function BenefitGrid() {
+  const benefits = [
+    { big: '1,300만원', acc: '→ 50만원', lbl: '국비지원 후 자기부담금', featured: true },
+    { big: '80만원', acc: '/월', lbl: '훈련장려금 (출석률 기준)' },
+    { big: '도서 4권', acc: '', lbl: '10만원 상당 BX·디자인 핵심 도서' },
+    { big: 'AI 풀스택', acc: '', lbl: 'GPT Biz · Claude · Midjourney $30 · Firefly' },
+    { big: 'Figma Edu', acc: '+ Adobe', lbl: '포토샵 · 일러스트레이터 · 파이어플라이' },
+    { big: '100%', acc: '', lbl: '주강사 라이브 수업 · 100% 온라인' },
+    { big: '6개월', acc: '', lbl: '수료 후 인턴 매칭 지원' },
+    { big: 'Antigravity', acc: '', lbl: '바이브 코딩 · 진짜 웹 포폴 배포', featured: false },
+  ];
+
+  return (
+    <section id="benefits" style={{
+      padding: '120px 24px',
+      background: 'var(--bg-2)',
+      backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
+      backgroundSize: '80px 80px',
+    }}>
+      <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+        <div className="eyebrow" style={{ marginBottom: 16 }}>BENEFITS</div>
+        <h2 style={{
+          fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900,
+          letterSpacing: '-0.03em', lineHeight: 1.1, color: 'var(--fg-1)',
+          marginBottom: 56, maxWidth: 880,
+        }}>
+          90일 동안 받는 모든 것
+        </h2>
+
+        {/* Featured hero benefit — Macbook M1 Pro */}
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 24,
+          marginBottom: 16,
+          background: 'var(--bg-1)', border: '1px solid var(--stroke-1)',
+          borderRadius: 16, overflow: 'hidden',
+        }}>
+          <div style={{ padding: 32, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div className="eyebrow" style={{ color: 'var(--accent-hi)', marginBottom: 12 }}>EQUIPMENT</div>
+            <div style={{
+              fontSize: 'clamp(40px, 5vw, 64px)', fontWeight: 900,
+              letterSpacing: '-0.04em', lineHeight: 1, color: 'var(--fg-1)',
+              marginBottom: 12,
+            }}>
+              MacBook M1 Pro
+            </div>
+            <div style={{ fontSize: 16, color: 'var(--fg-3)', lineHeight: 1.6 }}>
+              디자이너에게 가장 비싼 진입장벽 — 장비를 우리가 지급합니다.
+              + 5만원 상당 마우스 + 10만원 상당 BX 도서 4권
+            </div>
+          </div>
+          <div style={{
+            background: '#F5F5F7',
+            display: 'grid', placeItems: 'center',
+            padding: '24px',
+          }}>
+            <img
+              src={window.__resources.imgMacbook}
+              alt="MacBook M1 Pro"
+              style={{ width: '100%', maxWidth: 320, height: 'auto', display: 'block' }}
+            />
+          </div>
+        </div>
+
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16,
+        }}>
+          {benefits.map((b, i) => (
+            <div key={i} style={{
+              background: b.featured ? 'var(--accent-tint)' : 'var(--bg-1)',
+              border: `1px solid ${b.featured ? 'var(--accent-tint-2)' : 'var(--stroke-1)'}`,
+              borderRadius: 12, padding: '24px 20px',
+              minHeight: 150, display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+            }}>
+              <div>
+                <div style={{
+                  fontSize: 'clamp(24px, 2.6vw, 36px)', fontWeight: 900,
+                  letterSpacing: '-0.04em', lineHeight: 1.05,
+                  color: b.featured ? 'var(--accent-hi)' : 'var(--fg-1)',
+                  marginBottom: 6,
+                }}>{b.big}</div>
+                {b.acc && <div style={{ fontSize: 14, color: 'var(--fg-3)', fontWeight: 600 }}>{b.acc}</div>}
+              </div>
+              <div style={{ fontSize: 12, color: 'var(--fg-3)', marginTop: 12, lineHeight: 1.5 }}>{b.lbl}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ marginTop: 24, fontSize: 12, color: 'var(--fg-4)' }}>
+          * 국민 취업지원제도 대상자 기준 / 출석률 80% 이상 시 훈련장려금 지급.
+        </div>
+      </div>
+    </section>
+  );
+}
+
+window.AIBXKit = Object.assign(window.AIBXKit || {}, { BenefitGrid });
+
+  </script>
+
+  <script type="text/babel">
+/* global React */
+const { useState: useState_faq } = React;
+
+function FAQ() {
+  const [open, setOpen] = useState_faq(0);
+  const qa = [
+    {
+      q: '비전공·비경력인데 따라갈 수 있나요?',
+      a: '현재 수강생 73%가 비전공자입니다. 첫 2주는 디자인 기초·도구 워밍업이며, 1:1 멘토가 진도를 끌어드립니다. 따라가지 못해 그만두는 경우는 거의 없습니다.',
+    },
+    {
+      q: 'PD와 BX는 결국 같은 직무 아닌가요?',
+      a: '결정적으로 다릅니다. 첫 주차에 둘의 산출물·평가 기준을 분해하고, 본인 적성에 맞는 트랙을 같이 잡습니다. "어디든 지원해보자"식 포폴이 떨어지는 이유가 여기 있습니다.',
+    },
+    {
+      q: '국비지원은 누구나 받을 수 있나요?',
+      a: '국민 취업지원제도 1유형 대상자(만 18-34세, 일정 소득 이하)면 자기부담금 50만원으로 수강 가능합니다. 신청 시 자격 확인을 도와드립니다.',
+    },
+    {
+      q: '온라인 100%인데 멘토링은 어떻게 진행되나요?',
+      a: '주 1회 정기 1:1 멘토링 + 매일 슬랙 채널 + 분기 1회 오프라인 데모데이. 자체 LMS에서 멘토 일정 예약과 포폴 리뷰가 한 곳에서 진행됩니다.',
+    },
+    {
+      q: '수료 후 정말로 취업할 수 있을까요?',
+      a: '수료 후 6개월간 협력사 인턴 공고를 100% 매칭해드립니다. 단, 매칭은 보장이며 합격은 본인 포폴/면접에 달려있습니다. 그래서 90일 동안 포폴 3개를 만드는 것이 목표입니다.',
+    },
+  ];
+  return (
+    <section id="faq" style={{ padding: '120px 24px' }}>
+      <div style={{ maxWidth: 880, margin: '0 auto' }}>
+        <div className="eyebrow" style={{ marginBottom: 16 }}>FAQ</div>
+        <h2 style={{
+          fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900,
+          letterSpacing: '-0.03em', lineHeight: 1.1, color: 'var(--fg-1)',
+          marginBottom: 56,
+        }}>
+          망설이는 이유,<br />여기서 끝내드립니다.
+        </h2>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {qa.map((it, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={i} style={{
+                background: 'var(--bg-2)', border: '1px solid var(--stroke-1)',
+                borderRadius: 12, overflow: 'hidden',
+              }}>
+                <button onClick={() => setOpen(isOpen ? -1 : i)} style={{
+                  width: '100%', textAlign: 'left',
+                  background: 'transparent', border: 'none', cursor: 'pointer',
+                  padding: '20px 24px',
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  color: 'var(--fg-1)', fontSize: 16, fontWeight: 600,
+                  fontFamily: 'var(--font-sans)', letterSpacing: '-0.01em',
+                }}>
+                  <span>{it.q}</span>
+                  <span style={{
+                    color: 'var(--accent-hi)', fontSize: 22, fontWeight: 400,
+                    transition: 'transform 220ms var(--ease-out)',
+                    transform: isOpen ? 'rotate(45deg)' : 'rotate(0)',
+                  }}>+</span>
+                </button>
+                {isOpen && (
+                  <div style={{
+                    padding: '0 24px 22px', color: 'var(--fg-3)', fontSize: 15, lineHeight: 1.7,
+                  }}>{it.a}</div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+window.AIBXKit = Object.assign(window.AIBXKit || {}, { FAQ });
+
+  </script>
+
+  <script type="text/babel">
+/* global React */
+const { useState: useState_apply } = React;
+
+function ApplyCTA() {
+  const [form, setForm] = useState_apply({ name: '', phone: '', track: '아직 모르겠어요' });
+  const [submitted, setSubmitted] = useState_apply(false);
+
+  const submit = (e) => {
+    e.preventDefault();
+    if (!form.name || !form.phone) return;
+    setSubmitted(true);
+  };
+
+  return (
+    <section id="apply" style={{
+      padding: '120px 24px',
+      background: 'var(--bg-1)',
+      position: 'relative',
+      overflow: 'hidden',
+    }}>
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'radial-gradient(circle at 50% 0%, rgba(61,90,254,0.32) 0%, transparent 50%)',
+        pointerEvents: 'none',
+      }} />
+
+      <div style={{ position: 'relative', maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
+        <div className="eyebrow" style={{ color: 'var(--signal-warn)', marginBottom: 16 }}>CURRICULUM · 마감 임박</div>
+        <h2 style={{
+          fontSize: 'clamp(36px, 5.5vw, 64px)', fontWeight: 900,
+          letterSpacing: '-0.04em', lineHeight: 1.05, color: 'var(--fg-1)',
+          marginBottom: 24,
+        }}>
+          쉰 시간을<br />
+          <span style={{
+            background: 'linear-gradient(135deg, #7B8CFF, #3D5AFE)',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+          }}>이력서의 무기</span>로 바꾸세요.
+        </h2>
+        <p style={{ fontSize: 17, color: 'var(--fg-3)', marginBottom: 48, lineHeight: 1.6 }}>
+          50만원으로 시작해 90일 후 BX 포트폴리오 3개 + 인턴십 매칭 + 무제한 취업 코칭.
+          커리큘럼이 곧 마감됩니다.
+        </p>
+
+        {submitted ? (
+          <div style={{
+            padding: 40, background: 'var(--bg-2)', border: '1px solid var(--accent)',
+            borderRadius: 20, color: 'var(--fg-1)',
+          }}>
+            <div style={{
+              width: 56, height: 56, borderRadius: '50%',
+              background: 'var(--signal-success-tint)', color: 'var(--signal-success)',
+              display: 'grid', placeItems: 'center', margin: '0 auto 20px',
+              fontSize: 28, fontWeight: 900,
+            }}>✓</div>
+            <div style={{ fontSize: 22, fontWeight: 800, marginBottom: 8, letterSpacing: '-0.02em' }}>신청서가 접수되었습니다.</div>
+            <div style={{ color: 'var(--fg-3)', fontSize: 15 }}>
+              영업일 기준 1일 내 입학상담사가 연락드립니다. {form.name}님의 트랙: <strong style={{ color: 'var(--accent-hi)' }}>{form.track}</strong>
+            </div>
+          </div>
+        ) : (
+          <form onSubmit={submit} style={{
+            background: 'var(--bg-2)', border: '1px solid var(--stroke-1)',
+            borderRadius: 20, padding: 32, textAlign: 'left',
+            display: 'flex', flexDirection: 'column', gap: 16,
+          }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <label style={{ fontSize: 12, color: 'var(--fg-3)', fontWeight: 500 }}>이름</label>
+                <input
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  placeholder="홍길동"
+                  style={{
+                    background: 'var(--bg-3)', border: '1px solid var(--stroke-1)',
+                    borderRadius: 8, padding: '12px 14px',
+                    color: 'var(--fg-1)', fontSize: 15, fontFamily: 'var(--font-sans)',
+                    outline: 'none',
+                  }}
+                />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <label style={{ fontSize: 12, color: 'var(--fg-3)', fontWeight: 500 }}>연락처</label>
+                <input
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  placeholder="010-0000-0000"
+                  style={{
+                    background: 'var(--bg-3)', border: '1px solid var(--stroke-1)',
+                    borderRadius: 8, padding: '12px 14px',
+                    color: 'var(--fg-1)', fontSize: 15, fontFamily: 'var(--font-sans)',
+                    outline: 'none',
+                  }}
+                />
+              </div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <label style={{ fontSize: 12, color: 'var(--fg-3)', fontWeight: 500 }}>관심 직무</label>
+              <select
+                value={form.track}
+                onChange={(e) => setForm({ ...form, track: e.target.value })}
+                style={{
+                  background: 'var(--bg-3)', border: '1px solid var(--stroke-1)',
+                  borderRadius: 8, padding: '12px 14px',
+                  color: 'var(--fg-1)', fontSize: 15, fontFamily: 'var(--font-sans)',
+                  outline: 'none',
+                }}
+              >
+                <option>BX 디자이너 (브랜드 익스피리언스)</option>
+                <option>프로덕트 디자이너 (PD)</option>
+                <option>콘텐츠 디자이너</option>
+                <option>아직 모르겠어요</option>
+              </select>
+            </div>
+            <button type="submit" style={{
+              background: 'var(--accent)', color: 'white',
+              border: 'none', padding: '18px 32px',
+              borderRadius: 9999, fontSize: 17, fontWeight: 700,
+              letterSpacing: '-0.01em', cursor: 'pointer',
+              fontFamily: 'var(--font-sans)',
+              marginTop: 8,
+            }}>
+              지금 신청하기 — 마감 전에 →
+            </button>
+            <div style={{ fontSize: 11, color: 'var(--fg-4)', textAlign: 'center' }}>
+              신청 시 개인정보 수집·이용에 동의한 것으로 간주됩니다.
+            </div>
+          </form>
+        )}
+      </div>
+    </section>
+  );
+}
+
+window.AIBXKit = Object.assign(window.AIBXKit || {}, { ApplyCTA });
+
+  </script>
+
+  <script type="text/babel">
+/* global React */
+
+function Footer() {
+  return (
+    <footer style={{
+      padding: '48px 32px 64px',
+      borderTop: '1px solid var(--stroke-1)',
+      background: 'var(--bg-1)',
+    }}>
+      <div style={{ maxWidth: 1080, margin: '0 auto', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24 }}>
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+            <div style={{
+              width: 28, height: 28, borderRadius: 8,
+              background: 'linear-gradient(135deg, #3D5AFE, #7B8CFF)',
+              display: 'grid', placeItems: 'center',
+              color: 'white', fontWeight: 900, fontSize: 16,
+            }}>O</div>
+            <div style={{ fontWeight: 800, color: 'var(--fg-1)', letterSpacing: '-0.02em' }}>
+              오즈코딩스쿨 · 넥스트러너스(주)
+            </div>
+          </div>
+          <div style={{ fontSize: 12, color: 'var(--fg-4)', lineHeight: 1.6 }}>
+            대표 김OO · 사업자등록번호 000-00-00000<br />
+            통신판매업신고 제0000-서울강남-0000호<br />
+            서울특별시 강남구 ・ 고객센터 1599-0000
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 48 }}>
+          <div>
+            <div style={{ fontSize: 11, color: 'var(--fg-4)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 12 }}>회사</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {['회사 소개', '채용', '제휴 문의'].map(l => (
+                <a key={l} style={{ color: 'var(--fg-3)', fontSize: 13 }}>{l}</a>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: 11, color: 'var(--fg-4)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 12 }}>고객</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {['이용약관', '개인정보처리방침', '환불정책'].map(l => (
+                <a key={l} style={{ color: 'var(--fg-3)', fontSize: 13 }}>{l}</a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style={{ maxWidth: 1080, margin: '32px auto 0', paddingTop: 24, borderTop: '1px solid var(--stroke-1)', fontSize: 11, color: 'var(--fg-4)' }}>
+        © 2026 NextRunners Inc. All rights reserved.
+      </div>
+    </footer>
+  );
+}
+
+window.AIBXKit = Object.assign(window.AIBXKit || {}, { Footer });
+
+  </script>
+
+  <script type="text/babel">
+    const { Nav, Hero, PainSection, SalaryComparison, PortfolioPreview, Curriculum, ChapterHooks, ToolStack, CompetitorComparison, Mentors, BenefitGrid, FAQ, ApplyCTA, Footer } = window.AIBXKit;
+    function App() {
+      return (
+        <div data-screen-label="01 Landing Page">
+          <Nav /><Hero /><PainSection /><SalaryComparison /><PortfolioPreview />
+          <Curriculum /><ChapterHooks /><ToolStack /><CompetitorComparison />
+          <Mentors /><BenefitGrid /><FAQ /><ApplyCTA /><Footer />
+        </div>
+      );
+    }
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>

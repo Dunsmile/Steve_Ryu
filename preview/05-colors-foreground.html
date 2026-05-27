@@ -1,0 +1,40 @@
+<!-- @dsCard group="Colors" -->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 28px 32px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  .item { padding: 14px 16px; background: var(--bg-2); border: 1px solid var(--stroke-1); border-radius: var(--r-12); display: flex; flex-direction: column; gap: 6px; }
+  .sample { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+  .lbl { font-size: 11px; color: var(--fg-4); font-family: var(--font-mono); }
+  .meta { font-size: 11px; color: var(--fg-3); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="item">
+      <div class="sample" style="color: #FFFFFF">Aa 가나</div>
+      <div class="lbl">fg-1</div>
+      <div class="meta">헤드라인 · 핵심</div>
+    </div>
+    <div class="item">
+      <div class="sample" style="color: #E5E5EC">Aa 가나</div>
+      <div class="lbl">fg-2</div>
+      <div class="meta">본문</div>
+    </div>
+    <div class="item">
+      <div class="sample" style="color: #A8A8B3">Aa 가나</div>
+      <div class="lbl">fg-3</div>
+      <div class="meta">보조 · 캡션</div>
+    </div>
+    <div class="item">
+      <div class="sample" style="color: #6B6B7A">Aa 가나</div>
+      <div class="lbl">fg-4</div>
+      <div class="meta">비활성 · 헬퍼</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!-- @dsCard group="Components" -->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 28px 32px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .stat {
+    background: var(--bg-2); border: 1px solid var(--stroke-1);
+    border-radius: var(--r-12); padding: 20px 22px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .stat .num { font-size: 48px; font-weight: 900; letter-spacing: -0.04em; line-height: 1; color: var(--fg-1); }
+  .stat .num .accent { color: var(--accent-hi); }
+  .stat .lbl { font-size: 13px; color: var(--fg-3); }
+  .stat.featured { background: var(--accent-tint); border-color: var(--accent-tint-2); }
+  .stat.featured .num { color: var(--accent-hi); }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="stat featured">
+      <div class="num">50<span style="font-size: 22px; margin-left: 4px;">만원</span></div>
+      <div class="lbl">국비지원 후 자기부담금 (정가 1,300만원)</div>
+    </div>
+    <div class="stat">
+      <div class="num">90<span style="font-size: 22px; margin-left: 4px;">일</span></div>
+      <div class="lbl">집중 트랙</div>
+    </div>
+    <div class="stat">
+      <div class="num">3<span style="font-size: 22px; margin-left: 4px;">개</span></div>
+      <div class="lbl">완성되는 BX 포트폴리오</div>
+    </div>
+    <div class="stat">
+      <div class="num">100<span style="font-size: 22px; margin-left: 4px;">%</span></div>
+      <div class="lbl">수료 후 6개월 인턴 매칭</div>
+    </div>
+  </div>
+</body>
+</html>

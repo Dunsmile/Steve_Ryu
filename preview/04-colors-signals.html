@@ -1,0 +1,39 @@
+<!-- @dsCard group="Colors" -->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 28px 32px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .sw { display: flex; flex-direction: column; gap: 8px; }
+  .chip { height: 92px; border-radius: var(--r-12); display: grid; place-items: end start; padding: 12px; color: #0A0A0F; font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+  .name { font-size: 13px; font-weight: 600; color: var(--fg-1); }
+  .hex  { font-size: 11px; color: var(--fg-3); font-family: var(--font-mono); }
+  .role { font-size: 11px; color: var(--fg-4); }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="sw">
+      <div class="chip" style="background:#FFD400">URGENT</div>
+      <div class="name">signal-warn</div>
+      <div class="hex">#FFD400</div>
+      <div class="role">한정 모집 · 마감 임박</div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#00E5A0">SUCCESS</div>
+      <div class="name">signal-success</div>
+      <div class="hex">#00E5A0</div>
+      <div class="role">수료 · 매칭 · 완료</div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#FF4D6D; color: white;">ALERT</div>
+      <div class="name">signal-danger</div>
+      <div class="hex">#FF4D6D</div>
+      <div class="role">Wake-up · 떨어진다</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!-- @dsCard group="Colors" -->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 28px 32px; background: var(--bg-1); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .sw { display: flex; flex-direction: column; gap: 8px; }
+  .chip { height: 88px; border-radius: var(--r-12); display: grid; place-items: center; color: white; font-size: 36px; font-weight: 900; letter-spacing: -0.04em; }
+  .name { font-size: 13px; font-weight: 600; color: var(--fg-1); letter-spacing: -0.01em; }
+  .hex  { font-size: 11px; color: var(--fg-3); font-family: var(--font-mono); }
+  .label { font-size: 10px; color: var(--fg-4); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+  <div class="label">Accent · Electric Blue</div>
+  <div class="grid">
+    <div class="sw"><div class="chip" style="background:#3D5AFE">Aa</div><div class="name">accent</div><div class="hex">#3D5AFE</div></div>
+    <div class="sw"><div class="chip" style="background:#7B8CFF">Aa</div><div class="name">accent-hi</div><div class="hex">#7B8CFF</div></div>
+    <div class="sw"><div class="chip" style="background:#2638E5">Aa</div><div class="name">accent-pressed</div><div class="hex">#2638E5</div></div>
+    <div class="sw"><div class="chip" style="background:rgba(61,90,254,0.16); border: 1px solid var(--stroke-1);">Aa</div><div class="name">accent-tint</div><div class="hex">16% alpha</div></div>
+  </div>
+</body>
+</html>
